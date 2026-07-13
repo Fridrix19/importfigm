@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Презентация команды Лащёв Ярослав × Хавалиц Фёдор: единая продуктовая система — дизайн, frontend, full-stack, SQL, Python, JavaScript, API, AI и motion.">
+  <title>Ярослав × Фёдор — команда как система</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Unbounded:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="noise" aria-hidden="true"></div>
+  <div class="cursor-glow" aria-hidden="true"></div>
+
+  <header class="topbar" aria-label="Навигация презентации">
+    <nav class="topbar__nav" aria-label="Слайды">
+      <button class="nav-dot is-active" type="button" data-goto="0" aria-label="Титульный экран"></button>
+      <button class="nav-dot" type="button" data-goto="1" aria-label="Система"></button>
+      <button class="nav-dot" type="button" data-goto="2" aria-label="Общий стек"></button>
+      <button class="nav-dot" type="button" data-goto="3" aria-label="Фёдор"></button>
+      <button class="nav-dot" type="button" data-goto="4" aria-label="Ярослав"></button>
+      <button class="nav-dot" type="button" data-goto="5" aria-label="Кейсы Фёдора"></button>
+      <button class="nav-dot" type="button" data-goto="6" aria-label="Работы Ярослава"></button>
+      <button class="nav-dot" type="button" data-goto="7" aria-label="Общие проекты"></button>
+      <button class="nav-dot" type="button" data-goto="8" aria-label="Итог"></button>
+      <button class="nav-dot" type="button" data-goto="9" aria-label="QR-коды портфолио"></button>
+    </nav>
+  </header>
+
+  <main class="deck" id="deck">
+    <section class="slide cover is-active" id="cover" data-slide="cover">
+      <div class="slide__inner cover__inner">
+        <div class="cover__title-wrap reveal delay-1">
+          <h1 class="cover__title">
+            <span>Команда</span>
+            <span class="cover__x">как</span>
+            <span>система</span>
+          </h1>
+          
+        </div>
+
+        <div class="cover-system reveal delay-2" aria-label="Ключевая формула команды">
+          <article class="system-card system-card--primary">
+            <span>Общее ядро</span>
+            <strong>UX/UI · Frontend · Full-stack · Python · SQL · JavaScript · API · AI · Motion</strong>
+          </article>
+          <article class="system-card">
+            <span>Фёдор</span>
+            <strong>Визуальную ясность, UX, JavaScript-интерфейсы, motion и упаковку</strong>
+          </article>
+          <article class="system-card">
+            <span>Ярослав</span>
+            <strong>Архитектура, full-stack логика, интеграции, данные и устойчивость</strong>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" id="team-dna" data-slide="01">
+      <div class="slide__inner slide-grid slide-grid--system">
+        <div class="slide-copy reveal">
+          <h2>Работаем как единая продуктовая группа: от постановки задачи до проверяемого результата.</h2>
+          <p class="lead">Мы синхронизируем аналитику, интерфейс, визуальную систему, frontend, backend, данные и демонстрацию. Поэтому решение выглядит цельно: пользовательский сценарий, техническая логика и подача не расходятся между собой.</p>
+        </div>
+
+        <div class="system-map system-map--single reveal delay-1" aria-label="Единая продуктовая сборка">
+          <div class="map-center">
+            <strong>Единая продуктовая сборка</strong>
+            <div class="map-rotator" aria-label="Сменяющиеся части сборки">
+              <span>контекст</span>
+              <span>UX/UI</span>
+              <span>frontend</span>
+              <span>backend</span>
+              <span>data</span>
+              <span>AI / API</span>
+              <span>motion</span>
+              <span>проверка</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" id="shared-stack" data-slide="02">
+      <div class="slide__inner compact-layout">
+        <div class="slide-copy reveal">
+          <h2>Используемый стек. <br> Ключевые инструменты.</h2>
+          <p class="lead">Python, SQL, JavaScript, Figma, API, AI и motion — общая система команды. <br> Мы выбираем инструмент под задачу, а не под формальное разделение ролей.</p>
+        </div>
+
+        <div class="stack-board reveal delay-1" aria-label="Полный общий стек команды">
+          <article class="stack-tile">
+            <span>Product / UX</span>
+            <div class="stack-tags">
+              
+              <b class="stack-tag stack-tag--key">CJM</b>
+              <b class="stack-tag stack-tag--key">Task flow</b>
+              <b class="stack-tag stack-tag--key">User flow</b>
+              <b class="stack-tag">Аудитория</b>
+              <b class="stack-tag">Сценарии</b>
+              <b class="stack-tag">Прототипы</b>
+              <b class="stack-tag">Структура</b>
+              <b class="stack-tag">Продуктовый аудит</b>
+              <b class="stack-tag">Презентации</b>
+            </div>
+          </article>
+          <article class="stack-tile">
+            <span>Interface</span>
+            <div class="stack-tags">
+              <b class="stack-tag stack-tag--key">Figma</b>
+              <b class="stack-tag stack-tag--key">Дизайн-системы</b>
+              <b class="stack-tag">Адаптив</b>
+             
+              <b class="stack-tag">Айдентика</b>
+              <b class="stack-tag">Типографика</b>
+              <b class="stack-tag">UI-kit</b>
+              <b class="stack-tag">Дашборды</b>
+              <b class="stack-tag">Формы</b>
+            </div>
+          </article>
+          <article class="stack-tile">
+            <span>Frontend</span>
+            <div class="stack-tags">
+              <b class="stack-tag stack-tag--key">JavaScript</b>
+              <b class="stack-tag stack-tag--key">HTML/CSS</b>
+              <b class="stack-tag stack-tag--key">React/Vue/Nuxt</b>
+              <b class="stack-tag">TypeScript</b>
+              <b class="stack-tag">Vite</b>
+              <b class="stack-tag">PWA</b>
+              <b class="stack-tag">Интерактив</b>
+              <b class="stack-tag">Анимация</b>
+        
+            </div>
+          </article>
+          <article class="stack-tile">
+            <span>Backend / Data</span>
+            <div class="stack-tags">
+              <b class="stack-tag stack-tag--key">Python</b>
+              <b class="stack-tag stack-tag--key">SQL</b>
+              <b class="stack-tag stack-tag--key">REST API</b>
+              <b class="stack-tag">Node.js</b>
+              <b class="stack-tag">Express</b>
+              <b class="stack-tag">PostgreSQL</b>
+              <b class="stack-tag">MS SQL</b>
+              <b class="stack-tag">ИС</b>
+              <b class="stack-tag">Модели данных</b>
+              <b class="stack-tag">Google Apps Script</b>
+            </div>
+          </article>
+          <article class="stack-tile">
+            <span>AI / Automation</span>
+            <div class="stack-tags">
+              <b class="stack-tag stack-tag--key">API-интеграции</b>
+              <b class="stack-tag stack-tag--key">Ollama</b>
+              
+              <b class="stack-tag">GPT</b>
+              <b class="stack-tag">YandexGPT</b>
+              <b class="stack-tag">Cursor</b>
+              <b class="stack-tag">n8n</b>
+              <b class="stack-tag">LLM API</b>
+              <b class="stack-tag">Stable Diffusion</b>
+              <b class="stack-tag">Midjourney</b>
+              <b class="stack-tag">ReCraft</b>
+            </div>
+          </article>
+          <article class="stack-tile">
+            <span>Visual / Motion</span>
+            <div class="stack-tags">
+              <b class="stack-tag stack-tag--key">After Effects</b>
+              <b class="stack-tag stack-tag--key">Photoshop</b>
+              <b class="stack-tag">Affinity Designer</b>
+              <b class="stack-tag">Affinity Photo</b>
+              <b class="stack-tag">Procreate</b>
+              <b class="stack-tag">Veo AI</b>
+              <b class="stack-tag">Illustrator</b>
+              <b class="stack-tag">Premiere Pro</b>
+              <b class="stack-tag">Motion</b>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" id="fedor" data-slide="03">
+      <div class="slide__inner profile-layout profile-layout--reverse">
+        <div class="profile-card profile-card--main reveal">
+          <h2>Продуктовый дизайн, frontend-интерфейсы, визуальная система, JavaScript и motion.</h2>
+          <p class="lead">Фёдор отвечает за продуктовый слой, который видит пользователь: формулирует сценарий, проектирует структуру экранов, собирает интерактивный frontend и доводит визуальную систему до уровня готовой презентации продукта.</p>
+        </div>
+
+        <div class="profile-points reveal delay-1">
+          <article class="point-card">
+            <span>01</span>
+            <h3>UX / product flow</h3>
+            <p>Task flow, user flow, CJM, прототипы, сценарии, аудит интерфейса, структура экранов и логика прохождения пользователя.</p>
+          </article>
+          <article class="point-card">
+            <span>02</span>
+            <h3>Visual / AI-графика</h3>
+            <p>Affinity Designer & Photo, Procreate, Veo AI, айдентика, презентационная графика, обложки, визуальный стиль и упаковка.</p>
+          </article>
+          <article class="point-card">
+            <span>03</span>
+            <h3>Frontend / product UI / motion</h3>
+            <p>React, JavaScript, HTML/CSS, PWA, адаптивные интерфейсы, состояния, формы, фильтры, интерактив, микродвижение и презентационные frontend-сборки.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" id="yaroslav" data-slide="04">
+      <div class="slide__inner profile-layout profile-layout--reverse">
+        <div class="profile-card profile-card--main reveal">
+          <h2>Инженерная сборка, backend-логика, данные, API и автоматизация.</h2>
+          <p class="lead">Ярослав усиливает продукт со стороны технической реализации: выстраивает логику сервисов, связывает интерфейс с данными, настраивает интеграции, автоматизацию и стабильные рабочие сценарии.</p>
+        </div>
+
+        <div class="profile-points reveal delay-1">
+          <article class="point-card">
+            <span>01</span>
+            <h3>Full-stack / service logic</h3>
+            <p>Структура web-приложений, связка клиентской части с серверной логикой, хранением данных, ролями и рабочими процессами.</p>
+          </article>
+          <article class="point-card">
+            <span>02</span>
+            <h3>Backend / API / automation</h3>
+            <p>Node.js, Express, Python, REST API, YandexGPT, Ollama, n8n, Docker, Google Apps Script и автоматизация прикладных сценариев.</p>
+          </article>
+          <article class="point-card">
+            <span>03</span>
+            <h3>Data / product tools</h3>
+            <p>SQL, PostgreSQL, Supabase, Google Sheets, модели данных, отчёты, интеграции, Tauri/Rust и поддержка продуктовых инструментов.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" id="cases" data-slide="05">
+      <div class="slide__inner cases-layout">
+        <div class="slide-copy reveal">
+          <h2>Фёдор — продуктовый дизайн, frontend-интерфейсы, визуальные системы и motion.</h2>
+          <p class="lead">Пользовательский сценарий, структура экранов, frontend-сборка, визуальная система, интерактивная демонстрация и презентационная упаковка результата.</p>
+        </div>
+
+        <div class="case-grid reveal delay-1">
+          <article class="case-card">
+            <span>UX / Interface</span>
+            <h3>УниВенд</h3>
+            <p>Интерактивное руководство по цифровому контенту бренда: архитектура из 55 экранов, поиск, адаптивные состояния, анимации и единые правила для текста, графики, видео и музыки.</p>
+          </article>
+          <article class="case-card">
+            <span>AI / Hackathon</span>
+            <h3>Профайб · Match</h3>
+            <p>Хакатонный сервис для профориентации: сценарий выбора профессии, уточняющие вопросы, AI-инсайты, вайб-портрет, карточка результата и визуальный мудборд.</p>
+          </article>
+          <article class="case-card">
+            <span>Motion</span>
+            <h3>LayerZero</h3>
+            <p>Motion-направление для LayerZero: оформление интервью-шоу и таймлайна V2, типографика, переходы, интерактивные элементы и ритм монтажа.</p>
+          </article>
+          <article class="case-card">
+            <span>ИС / SQL Server / MS Access</span>
+            <h3>ИС центра реабилитации</h3>
+            <p>Информационная система для центра реабилитации: модели IDEF0/IDEF3/DFD, MS SQL Server, MS Access, процедуры, триггеры, медкарты, услуги и отчётность.</p>
+          </article>
+          <article class="case-card">
+            <span>Brand / Web</span>
+            <h3>BEATFOUND</h3>
+            <p>Продуктовый web-интерфейс для музыкального сервиса: сценарии продвижения треков, поиск совпадений в битах и переход от wireframe к рабочей frontend-сборке.</p>
+          </article>
+          <article class="case-card">
+            <span>Game / Python Arcade</span>
+            <h3>Жадина</h3>
+            <p>Игровой прототип на Python Arcade: механика веса золота, изменение скорости и прыжка, уровни, состояния персонажа и целостная игровая логика.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" id="yaroslav-works" data-slide="06">
+      <div class="slide__inner cases-layout">
+        <div class="slide-copy reveal">
+          <h2>Ярослав — инженерная сборка, данные, API, автоматизация и продуктовые инструменты.</h2>
+          <p class="lead">Логика сервисов, работа с данными, интеграции, backend-сценарии, автоматизация и поддержка устойчивых рабочих инструментов.</p>
+        </div>
+
+        <div class="case-grid reveal delay-1">
+          <article class="case-card">
+            <span>ИС / SQL / Support</span>
+            <h3>ИС поддержки вендинговых автоматов</h3>
+            <p>Система для обработки обращений по автоматам: заявки, статусы, диагностика, роли пользователей, история обслуживания и регламентная логика поддержки.</p>
+          </article>
+          <article class="case-card">
+            <span>Web app / logic</span>
+            <h3>Aurora TodoApp</h3>
+            <p>Приложение задач с прикладной логикой: модель данных, статусы, пользовательские действия, сохранение состояния и управляемый рабочий процесс.</p>
+          </article>
+          <article class="case-card">
+            <span>Python / Data / AI</span>
+            <h3>Data & AI-проекты</h3>
+            <p>Пакет прикладных решений: geo-визуализация, computer vision и NLP через Python, обработка данных, модели вывода и понятная интерпретация результата.</p>
+          </article>
+          <article class="case-card">
+            <span>API / Automation</span>
+            <h3>Интеграции и автоматизация</h3>
+            <p>REST API, n8n, Google Apps Script и backend-сервисы для сценариев, где продуктовая логика связана с внешними данными и процессами.</p>
+          </article>
+          <article class="case-card">
+            <span>Product tools / reports</span>
+            <h3>Рабочие инструменты</h3>
+            <p>Внутренние сервисы с ролями, статусами, фильтрами и отчётами: связка клиентской части с API, SQL, хранением данных и автоматизацией процессов.</p>
+          </article>
+          <article class="case-card">
+            <span>Desktop / Tauri / Rust</span>
+            <h3>HideSelf</h3>
+            <p>Desktop-клиент для Windows: управление VPN-профилями, маршрутизацией, runtime-процессами, логами, настройками и диагностикой подключений.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" id="shared-projects" data-slide="07">
+      <div class="slide__inner shared-projects-layout">
+        <div class="slide-copy reveal">
+          <h2>Совместные проекты — место, где система работала взаимосвзяно.</h2>
+          <p class="lead">Список кейсов. В связке работают: UI/UX, frontend, backend, визуальная подача, логика, AI-сценарии, данные, интеграции, автоматизация, motion и презентационная упаковка результата.</p>
+        </div>
+
+        <div class="shared-project-grid reveal delay-1" aria-label="Общие проекты команды">
+          <article class="shared-project-card">
+            <span>дипломная работа</span>
+            <h3>УниВенд</h3>
+            <p>Интерактивный брендбук и digital-система для УниВенд: сайт продаж, правила текстового, графического, видео- и музыкального контента, поиск, адаптив, анимации и понятный пользовательский маршрут.</p>
+            <div class="project-card__links">
+              <a href="https://yarzz.ru/?case=univend" target="_blank" rel="noopener noreferrer">yarzz.ru</a>
+              <a href="https://fridrixdev.ru/product.html?id=31" target="_blank" rel="noopener noreferrer">fridrixdev.ru</a>
+            </div>
+          </article>
+          <article class="shared-project-card">
+            <span>AI / Hackathon</span>
+            <h3>Профайб</h3>
+            <p>AI-сценарии, продуктовая гипотеза, интерфейсная логика и быстрая упаковка идеи под демонстрацию.</p>
+            <div class="project-card__links">
+              <a href="https://fridrixdev.ru/product.html?id=32" target="_blank" rel="noopener noreferrer">fridrixdev.ru</a>
+            </div>
+          </article>
+          <article class="shared-project-card">
+            <span>AI / Hackathon</span>
+            <h3>Этическая дилемма</h3>
+            <p>Проект на стыке сценария, интерфейса, AI-логики и понятной подачи сложной темы.</p>
+            <div class="project-card__links">
+              <a href="https://yarzz.ru/?case=ethical-dilemma-hackathon" target="_blank" rel="noopener noreferrer">yarzz.ru</a>
+              <a href="https://fridrixdev.ru/product.html?id=34" target="_blank" rel="noopener noreferrer">fridrixdev.ru</a>
+            </div>
+          </article>
+          <article class="shared-project-card">
+            <span>AI / Hackathon</span>
+            <h3>Match</h3>
+            <p>AI-концепт с анкетами, карточками, user flow и визуальным сценарием сервиса знакомств.</p>
+            <div class="project-card__links">
+              <a href="https://fridrixdev.ru/product.html?id=33" target="_blank" rel="noopener noreferrer">fridrixdev.ru</a>
+              <a href="https://yarzz.ru/?case=match-ai-dating" target="_blank" rel="noopener noreferrer">yarzz.ru</a>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide final" id="together" data-slide="08">
+      <div class="slide__inner final-layout">
+        <div class="final-copy reveal">
+          <h2>Мы можем быстро превратить неопределённую идею в понятный, красивый и работающий цифровой результат.</h2>
+          <p class="lead">Мини-продуктовая команда которая знает: как думать о задаче, проектировать интерфейс, писать код, связывать данные, использовать AI и показывать результат так, чтобы он был понятен.</p>
+        </div>
+
+        <div class="impact-grid reveal delay-1">
+          <article class="impact-card">
+            <span>01</span>
+            <h3>MVP</h3>
+            <p>Быстрые прототипы, лендинги запуска, proof-of-concept.</p>
+          </article>
+          <article class="impact-card">
+            <span>02</span>
+            <h3>Интерфейсы</h3>
+            <p>Кабинеты, сервисы, формы, дашборды, дизайн-системы.</p>
+          </article>
+          <article class="impact-card">
+            <span>03</span>
+            <h3>Данные</h3>
+            <p>SQL-модели, API, отчёты, backend-логика, интеграции.</p>
+          </article>
+          <article class="impact-card">
+            <span>04</span>
+            <h3>Подача</h3>
+            <p>Motion, сторителлинг, презентация и демонстрация продукта.</p>
+          </article>
+        </div>
+
+      </div>
+    </section>
+
+    <section class="slide portfolio-qr" id="portfolio-qr" data-slide="09">
+      <div class="slide__inner qr-layout">
+        <div class="slide-copy reveal">
+          <h2>Наши работы тут</h2>
+         
+        </div>
+
+        <div class="qr-grid reveal delay-1" aria-label="QR-коды портфолио">
+          <article class="qr-card">
+            <img class="qr-image" src="qr2.svg" alt="QR-код портфолио Фёдора">
+            <h3>Фёдор</h3>
+            <a href="https://fridrixdev.ru/" target="_blank" rel="noopener noreferrer">fridrixdev.ru</a>
+          </article>
+          <article class="qr-card">
+            <img class="qr-image" src="qr1.svg" alt="QR-код портфолио Ярослава">
+            <h3>Ярослав</h3>
+            <a href="https://yarzz.ru/" target="_blank" rel="noopener noreferrer">yarzz.ru</a>
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <aside class="progress" aria-label="Прогресс презентации">
+    <div class="progress__bar"><span id="progressBar"></span></div>
+    <div class="progress__count"><span id="currentSlide">00</span>/<span>09</span></div>
+  </aside>
+
+  <div class="mobile-controls" aria-label="Мобильная навигация">
+    <button type="button" id="prevSlide" aria-label="Предыдущий слайд">←</button>
+    <button type="button" id="nextSlide" aria-label="Следующий слайд">→</button>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

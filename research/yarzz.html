@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>YAROSLAZZ — Портфолио</title>
+  <meta name="description" content="Портфолио web-дизайнера и разработчика цифровых продуктов: сайты, интерфейсы, full-stack логика, API, SQL, автоматизация и UI/UX.">
+  <meta name="author" content="YAROSLAZZ">
+  <meta name="theme-color" content="#0b1712">
+  <link rel="canonical" href="https://portfolio-yaroslazz.vercel.app/">
+  <meta property="og:locale" content="ru_RU">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="YAROSLAZZ — Портфолио">
+  <meta property="og:description" content="Портфолио web-дизайнера и разработчика цифровых продуктов: сайты, интерфейсы, full-stack логика, API, SQL, автоматизация и UI/UX.">
+  <meta property="og:site_name" content="YAROSLAZZ">
+  <meta property="og:url" content="https://portfolio-yaroslazz.vercel.app/">
+  <meta property="og:image" content="https://portfolio-yaroslazz.vercel.app/assets/og/portfolio-preview.png">
+  <meta property="og:image:secure_url" content="https://portfolio-yaroslazz.vercel.app/assets/og/portfolio-preview.png">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="YAROSLAZZ — портфолио web-дизайнера и разработчика цифровых продуктов">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="YAROSLAZZ — Портфолио">
+  <meta name="twitter:description" content="Портфолио web-дизайнера и разработчика цифровых продуктов: сайты, интерфейсы, full-stack логика, API, SQL, автоматизация и UI/UX.">
+  <meta name="twitter:image" content="https://portfolio-yaroslazz.vercel.app/assets/og/portfolio-preview.png">
+  <meta name="twitter:image:alt" content="YAROSLAZZ — портфолио web-дизайнера и разработчика цифровых продуктов">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Instrument+Serif:ital@0;1&family=Manrope:wght@400;500;700;800&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" href="./assets/favicon.png">
+  <link rel="stylesheet" href="./css/styles.css?v=15">
+</head>
+<body>
+  <div class="preloader" id="preloader" aria-hidden="true">
+    <div class="preloader__foot">
+      <span class="preloader__label">ЗАГРУЗКА</span>
+      <span class="preloader__counter" data-preloader-counter>000</span>
+    </div>
+  </div>
+
+  <div class="page-shell">
+    <header class="topbar" aria-label="Основная навигация">
+      <a class="brand" href="#intro" aria-label="Перейти к началу страницы">
+        <span class="brand__mark"></span>
+        <span class="brand__text" data-site-name>yaroslazz</span>
+      </a>
+      <nav class="topbar__meta" aria-label="Разделы" id="topbar-menu" data-topbar-menu>
+        <a href="#intro">Интро</a>
+        <a href="#about">Обо мне</a>
+        <a href="#duality">Кто я</a>
+        <a href="#cases" data-nav-intro>Проекты</a>
+        <a href="#rightnow">Сейчас</a>
+        <a href="mailto:yaroslazz@deszign.ru" data-contact-link data-nav-contact>Контакты</a>
+      </nav>
+      <button
+        class="topbar__burger"
+        type="button"
+        aria-label="Открыть меню"
+        aria-expanded="false"
+        aria-controls="topbar-menu"
+        data-topbar-burger
+      >
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </header>
+
+    <main>
+      <section class="intro-scene" id="intro" aria-label="Вступительная сцена">
+        <div class="intro-scene__sticky">
+          <div class="intro-scene__backdrop" aria-hidden="true"></div>
+
+          <div class="intro-copy">
+            <p class="intro-copy__label section-chip" data-intro-label>[ Интро / 001 ]</p>
+            <div class="intro-copy__words" data-intro-words aria-live="polite"></div>
+            <p class="intro-copy__lead" data-intro-lead>
+              Я создаю выразительные цифровые решения, в которых форма подчеркивает смысл,
+              а движение помогает взгляду двигаться точно.
+            </p>
+          </div>
+
+          <div class="scroll-hint" data-scroll-hint aria-hidden="true">
+            <span class="scroll-hint__mouse" data-hint-mouse>
+              <span class="scroll-hint__wheel"></span>
+            </span>
+            <span class="scroll-hint__finger" data-hint-finger>
+              <span class="scroll-hint__finger-trail"></span>
+              <span class="scroll-hint__finger-dot"></span>
+            </span>
+            <span class="scroll-hint__text">Прокрутите ниже</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="about-scene" id="about" aria-label="Обо мне">
+          <section class="hero hero--stage" aria-label="Главный экран портфолио">
+            <div class="hero__backdrop" aria-hidden="true"></div>
+            <div class="hero__label-wrap">
+              <p class="section-chip section-chip--hero scroll-reveal" data-about-label data-reveal-trigger="#about">[ Обо мне / 002 ]</p>
+            </div>
+
+            <div class="hero__meta">
+              <p class="eyebrow" data-eyebrow>Цифровой дизайнер и разработчик</p>
+            </div>
+
+            <div class="hero__content">
+              <div class="hero__intro"></div>
+
+              <div class="hero__titles-wrap">
+                <h1 class="hero__title" data-title data-split>
+                  Проектирую и разрабатываю сервисы, в которых удобно работать с данными, задачами и пользователями.
+                </h1>
+                <h1 class="hero__title hero__title--alt" data-title-secondary data-split-secondary>
+                  Фокусируюсь на продуктах, где логика, интерфейс и техническая реализация собраны в ясную систему.
+                </h1>
+              </div>
+
+              <p class="hero__note">
+                <span data-note-primary>Быстро вникаю в предметную область: от пользовательских сценариев до структуры данных и ограничений разработки.</span>
+                <span data-note-secondary>Соединяю инженерную аккуратность с UX-мышлением: чтобы продукт был понятен, устойчив и приятен в работе.</span>
+              </p>
+
+              <div class="hero__footer">
+                <div class="hero__copy hero-reveal">
+                  <p data-description>
+                    Я разрабатываю цифровые продукты на стыке frontend, backend-логики и UI/UX.
+                    Работаю с web-приложениями, информационными системами, Python, SQL, API & AI-инструментами
+                    и PWA, где важны понятная архитектура и аккуратная реализация.
+                  </p>
+                </div>
+              </div>
+
+              <div class="hero__actions hero-reveal">
+                <a class="button button--primary" href="#cases" data-primary-cta>Смотреть кейсы</a>
+                <a class="button button--ghost" href="https://t.me/yaroslazz" data-secondary-cta>Написать в Telegram</a>
+              </div>
+
+            </div>
+
+            <aside class="hero__panel hero-reveal" aria-label="Ключевая информация">
+              <!-- <div class="panel-card">
+                <p class="panel-card__label" data-panel-label>Сейчас в фокусе</p>
+                <p class="panel-card__title" data-panel-title>Системы, интерфейсы и сайты с сильным характером и аккуратной логикой.</p>
+                <ul class="panel-card__list" data-panel-list>
+                  <li>Портфолио и личные сайты</li>
+                  <li>Посадочные страницы с акцентом на впечатление</li>
+                  <li>UX/UI-концепции для цифровых продуктов</li>
+                </ul>
+              </div> -->
+              <div class="panel-stamp">
+                <span class="panel-stamp__year" data-stamp-number>01</span>
+                <span class="panel-stamp__text" data-stamp-text>Основа подготовлена для вашей дальнейшей настройки</span>
+              </div>
+            </aside>
+
+            <section class="notes hero-reveal" id="notes" aria-label="Практика и направления" data-notes>
+              <div class="notes__item">
+                <span class="notes__index">01</span>
+                <p>Собираю сайты и web-дизайн под задачу, структуру и визуальный характер проекта.</p>
+              </div>
+              <div class="notes__item">
+                <span class="notes__index">02</span>
+                <p>Делаю контент, motion и визуалы для соцсетей, каналов и digital-коммуникации.</p>
+              </div>
+              <div class="notes__item">
+                <span class="notes__index">03</span>
+                <p>Работаю с печатным дизайном, иллюстрацией и оформлением материалов для разных носителей.</p>
+              </div>
+            </section>
+          </section>
+      </section>
+
+      <section class="duality" id="duality" aria-label="Кто я">
+        <div class="duality__sticky">
+          <div class="duality__label-wrap">
+            <span class="duality__label section-chip scroll-reveal" data-duality-label>[ Кто я / 003 ]</span>
+          </div>
+          <div class="duality__inner">
+            <article class="duality__col duality__col--left" aria-label="Профессиональный профиль">
+              <p class="duality__col-label scroll-reveal" data-duality-left-label>Код</p>
+              <h2 class="duality__heading" data-duality-left-title>
+                ЧТО
+                <br>
+                Я СОЗДАЮ
+              </h2>
+              <div class="duality__list" data-duality-left-list></div>
+            </article>
+
+            <div class="duality__divider" aria-hidden="true">
+              <span class="duality__divider-line" data-duality-divider-line></span>
+            </div>
+
+            <article class="duality__col duality__col--right" aria-label="Личные ориентиры">
+              <p class="duality__col-label scroll-reveal" data-duality-right-label>Культура</p>
+              <h2 class="duality__heading" data-duality-right-title>
+                ЧТО
+                <br>
+                МЕНЯ ДВИГАЕТ
+              </h2>
+              <div class="duality__list" data-duality-right-list></div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="cases" id="cases" aria-label="Избранные проекты">
+        <div class="cases__header cases__header--intro">
+          <div class="cases__header-wrap">
+            <p class="cases__label section-chip scroll-reveal" data-cases-label>[ Кейсы / 004 ]</p>
+          </div>
+        </div>
+        <div class="cases__inner">
+          <div class="cases__topbar">
+            <div class="cases__topbar-inner">
+              <div class="cases__filter cases__filter--bar" data-cases-filter role="tablist" aria-label="Разделы кейсов"></div>
+            </div>
+          </div>
+          <div class="cases__header cases__header--overlay" aria-hidden="true">
+            <div class="cases__header-wrap">
+              <p class="cases__label section-chip">[ Кейсы / 004 ]</p>
+            </div>
+          </div>
+          <div class="cases__track" data-cases-track></div>
+        </div>
+      </section>
+
+      <section class="rightnow" id="rightnow" aria-label="Прямо сейчас">
+        <div class="rightnow__inner">
+          <p class="section-chip section-chip--rightnow scroll-reveal" data-rightnow-label>[ В работе / 005 ]</p>
+          <h2 class="rightnow__heading scroll-reveal" aria-label="Прямо сейчас">
+            <span class="rightnow__word" data-rn-w1>ПРЯМО</span>
+            <span class="rightnow__word rightnow__word--accent" data-rn-w2>СЕЙЧАС</span>
+          </h2>
+          <div class="rightnow__grid" data-rn-grid></div>
+        </div>
+      </section>
+
+      <section class="open-channel" id="open-channel" aria-label="Открытый канал">
+        <div class="open-channel__inner">
+          <p class="section-chip open-channel__label scroll-reveal" data-open-channel-label>[ Контакты / 006 ]</p>
+            <p class="open-channel__lead scroll-reveal" data-open-channel-lead>Открыт к проектам на стыке web-разработки, интерфейсов, информационных систем и API & AI-инструментов.</p>
+          <a class="open-channel__email scroll-reveal" href="mailto:yaroslazz@deszign.ru" data-open-channel-email>YAROSLAZZ@DESZIGN.RU</a>
+          <div class="open-channel__rule" aria-hidden="true"></div>
+          <nav class="open-channel__links" aria-label="Ссылки" data-open-channel-links></nav>
+
+          <footer class="open-channel__footer" aria-label="Нижний колонтитул">
+            <p class="open-channel__copyright" data-footer-copyright>© 2026 yaroslazz</p>
+            <p class="open-channel__tagline" data-footer-tagline>Web dev • UI/UX • API & AI</p>
+          </footer>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <aside class="project-view" data-project-view hidden aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="project-view-title">
+    <div class="project-view__sheet">
+      <header class="project-view__topbar">
+        <span class="project-view__topbar-label" data-pv-topbar-label>/ КЕЙС</span>
+        <button class="project-view__close" type="button" data-case-close data-pv-close-label>Закрыть</button>
+      </header>
+
+      <div class="project-view__scroll" data-project-view-scroll>
+        <section class="project-view__hero">
+          <div class="project-view__hero-backdrop" data-project-backdrop aria-hidden="true"></div>
+          <div class="project-view__hero-grid">
+            <div class="project-view__hero-head">
+              <p class="project-view__eyebrow" data-project-number>01 / 06</p>
+              <p class="project-view__eyebrow project-view__eyebrow--muted" data-project-role>Role</p>
+            </div>
+            <div class="project-view__hero-copy">
+              <h2 class="project-view__title" id="project-view-title" data-project-title>CASE</h2>
+              <p class="project-view__subtitle" data-project-subtitle>Subtitle</p>
+            </div>
+            <div class="project-view__hero-side">
+              <p class="project-view__year" data-project-year>2026</p>
+              <p class="project-view__summary" data-project-summary>Summary</p>
+            </div>
+          </div>
+        </section>
+
+        <section class="project-view__section project-view__section--story">
+          <div class="project-view__story-grid">
+            <div>
+              <p class="project-view__section-label" data-pv-story-label>История</p>
+              <div class="project-view__story-copy" data-project-story></div>
+            </div>
+            <aside class="project-view__facts">
+              <div class="project-view__fact-block">
+                <p class="project-view__section-label" data-pv-stack-label>Стек</p>
+                <div class="project-view__stack" data-project-stack></div>
+              </div>
+              <div class="project-view__fact-block">
+                <p class="project-view__section-label" data-pv-details-label>Детали</p>
+                <div class="project-view__details" data-project-details></div>
+              </div>
+              <a class="project-view__live-link" href="#" target="_blank" rel="noreferrer noopener" data-project-live hidden>Посетить сайт</a>
+            </aside>
+          </div>
+        </section>
+
+        <section class="project-view__section project-view__section--visuals">
+          <p class="project-view__section-label project-view__section-label--wide" data-pv-visuals-label>Визуальное представление</p>
+          <div class="project-view__visuals" data-project-visuals></div>
+        </section>
+
+        <nav class="project-view__pager" aria-label="Навигация по кейсам">
+          <button class="project-view__pager-link project-view__pager-link--prev" type="button" data-case-nav="prev"></button>
+          <button class="project-view__pager-link project-view__pager-link--next" type="button" data-case-nav="next"></button>
+        </nav>
+      </div>
+    </div>
+  </aside>
+
+  <script src="https://unpkg.com/gsap@3/dist/gsap.min.js"></script>
+  <script src="https://unpkg.com/gsap@3/dist/ScrollTrigger.min.js"></script>
+  <script src="https://unpkg.com/gsap@3/dist/ScrollToPlugin.min.js"></script>
+  <script src="https://unpkg.com/split-type"></script>
+  <script src="./js/content.js?v=39"></script>
+  <script src="./js/helpers.js"></script>
+  <script src="./js/content-sections.js"></script>
+  <script src="./js/case-view.js?v=32"></script>
+  <script src="./js/cases-store.js?v=28"></script>
+  <script src="./js/cursor.js?v=3"></script>
+  <script src="./js/main.js?v=15"></script>
+</body>
+</html>

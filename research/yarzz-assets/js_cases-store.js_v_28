@@ -1,0 +1,748 @@
+(function () {
+  const portfolioContent = window.portfolioContent || {};
+  const CASES_API_ENDPOINT = "/api/cases";
+  const IMAGE_PROXY_ORIGIN = "https://wsrv.nl/";
+  const CASES_FETCH_TIMEOUT_MS = 2500;
+  const DEFAULT_CASE_ACCENT = "#d4ff7b";
+  const DEFAULT_CASE_BG = "linear-gradient(160deg, #101018 0%, #08080d 100%)";
+  const DEBUG_CASES_API = false;
+  const FORCE_IMAGE_SLIDER_SLUGS = new Set([
+    "data-visualization-geo",
+    "ethical-dilemma-hackathon",
+    "contentbook-client-govorit",
+    "vending-machine-support",
+    "match-ai-dating",
+    "quantum-shift-arcade"
+  ]);
+
+  // Видео-демонстрации кейсов лежат локально в assets и не хранятся в Supabase.
+  // Подмешиваем их по slug в начало визуалов (видео всегда идёт первым — над
+  // изображениями/слайдером, см. buildVisualsMarkup в case-view.js).
+  const VIDEO_BY_SLUG = {
+    "otrazhenie-vselennoy": {
+      src: "./assets/cases/otrazhenie-vselennoy/Mars.mp4",
+      title: "Видео-интро",
+      caption: "Motion-анимация интро для канала «Отражение вселенной»."
+    },
+    "formula-1": {
+      src: "./assets/cases/formula-1/Formula1.mp4",
+      title: "Видео-интро",
+      caption: "Экспериментальное motion-интро в стилистике Formula 1."
+    },
+    "moloko": {
+      src: "./assets/cases/moloko/Milk_Animation.mp4",
+      title: "Анимация",
+      caption: "Анимационная мини-история «Молоко»."
+    },
+    "quantum-shift-arcade": {
+      src: "./assets/cases/quantum-shift-arcade/gameplay.mp4",
+      title: "Геймплей",
+      caption: "Запись игрового процесса: инверсия гравитации и прохождение уровней."
+    }
+  };
+
+  // Разделы портфолио. id хранится в БД (столбец cases.category, добавляется
+  // миграцией), label показывается в интерфейсе. Пока столбца в БД нет —
+  // категория определяется резервной картой по slug (CATEGORY_BY_SLUG),
+  // поэтому фильтр по разделам работает сразу, а значение из БД (когда появится)
+  // имеет приоритет.
+  const CASE_CATEGORIES = [
+    { id: "design", label: "Дизайн" },
+    { id: "development", label: "Разработка" },
+    { id: "data-ai", label: "Данные и ИИ" }
+  ];
+  const CASE_CATEGORY_IDS = new Set(CASE_CATEGORIES.map((c) => c.id));
+  const DEFAULT_CATEGORY = "development";
+  const CATEGORY_BY_SLUG = {
+    "otrazhenie-vselennoy": "design",
+    "formula-1": "design",
+    "moloko": "design",
+    "na-poroge-pubertata": "design",
+    "ckbp-leti": "design",
+    "sovremennoe-iskusstvo": "design",
+    "contentbook-client-govorit": "design",
+    "booktune": "development",
+    "mesto-cultural-space": "design",
+    "ethical-dilemma-hackathon": "development",
+    "aurora-todoapp": "development",
+    "pharmacy-mobile-app": "design",
+    "loopi-video-app": "design",
+    "brief-generator": "data-ai",
+    "sticker-peel": "development",
+    "hideself": "development",
+    "eat-landing": "development",
+    "pik-tracker": "development",
+    "hackathon-ai-assistant": "data-ai",
+    "data-visualization-geo": "data-ai",
+    "computer-vision-ml": "data-ai",
+    "nlp-text-processing": "data-ai",
+    "vending-machine-support": "development",
+    "match-ai-dating": "data-ai",
+    "quantum-shift-arcade": "development",
+    "univend": "design"
+  };
+
+  function resolveCategory(rawValue, slug) {
+    const value = toTrimmedString(rawValue);
+    const currentCats = (window.portfolioContent && Array.isArray(window.portfolioContent.casesCategories) && window.portfolioContent.casesCategories.length > 0)
+      ? window.portfolioContent.casesCategories
+      : CASE_CATEGORIES;
+    const catIds = new Set(currentCats.map((c) => c.id));
+    if (value && catIds.has(value)) return value;
+    if (slug && CATEGORY_BY_SLUG[slug]) return CATEGORY_BY_SLUG[slug];
+    return currentCats[0]?.id || DEFAULT_CATEGORY;
+  }
+
+  function isNonEmptyString(value) {
+    return typeof value === "string" && value.trim().length > 0;
+  }
+
+  function toTrimmedString(value, fallback = "") {
+    if (typeof value === "number") return String(value);
+    return isNonEmptyString(value) ? value.trim() : fallback;
+  }
+
+  function normalizeTextArray(value) {
+    if (!Array.isArray(value)) return [];
+
+    return value
+      .map((item) => toTrimmedString(item))
+      .filter(Boolean);
+  }
+
+  function firstTextValue(...values) {
+    return values
+      .map((value) => toTrimmedString(value))
+      .find(Boolean) || "";
+  }
+
+  function normalizeVisualInfo(value) {
+    return firstTextValue(value);
+  }
+
+  function unpackAdvancedVisual(visual) {
+    const infoText = toTrimmedString(visual?.info_text ?? visual?.infoText ?? visual?.info);
+    const captionText = toTrimmedString(visual?.caption);
+    const marker = "__visual_json__";
+    const packedText = infoText.startsWith(marker) ? infoText : (captionText.startsWith(marker) ? captionText : "");
+    if (!packedText) return visual;
+
+    try {
+      const payload = JSON.parse(packedText.slice(marker.length));
+      if (!payload || typeof payload !== "object" || Array.isArray(payload)) return visual;
+      const next = { ...visual, ...payload };
+      if (payload.info_text !== undefined) next.info_text = payload.info_text;
+      if (payload.infoText !== undefined) next.infoText = payload.infoText;
+      if (captionText.startsWith(marker)) next.caption = payload.caption || "";
+      return next;
+    } catch (e) {
+      return visual;
+    }
+  }
+
+  function normalizeSearchText(...values) {
+    return values.map((value) => toTrimmedString(value).toLowerCase()).filter(Boolean).join(" ");
+  }
+
+  function describeVisualInfo(slug, title, alt, caseTitle = "") {
+    const text = normalizeSearchText(title, alt);
+    const label = firstTextValue(title, alt);
+    const visibleLabel = /^visual\s+\d+$/i.test(label) ? "" : label;
+    const name = firstTextValue(caseTitle, slug, "кейса");
+
+    if (slug === "data-visualization-geo") {
+      if (text.includes("карт") || text.includes("землетр")) {
+        return "Интерактивная карта показывает землетрясения за последние 30 дней: положение точек, силу событий и общий географический рисунок активности.";
+      }
+      if (text.includes("desktop") || text.includes("десктоп")) {
+        return "Desktop-версия раскрывает карту в широком формате: видны легенда, статистика и список крупнейших событий без перегруза основного глобуса.";
+      }
+      if (text.includes("mobile") || text.includes("мобиль")) {
+        return "Мобильная версия показывает, как карта и ключевые данные перестраиваются под узкий экран, сохраняя читаемость и управление.";
+      }
+      return "Визуализация показывает работу с геоданными: точки событий, масштаб магнитуды и интерфейс для быстрого чтения землетрясений на карте.";
+    }
+
+    if (slug === "computer-vision-ml") {
+      if (text.includes("mnist") || text.includes("цифр")) {
+        return "Этот экран показывает базовую классификацию изображений на MNIST: модель учится распознавать цифры и проверяется на тестовых примерах.";
+      }
+      if (text.includes("cifar")) {
+        return "Визуализация CIFAR-10 показывает более сложную задачу распознавания: модель работает уже не с цифрами, а с цветными объектами разных классов.";
+      }
+      if (text.includes("аугмент")) {
+        return "Аугментация показывает, как исходные изображения изменяются для обучения: повороты, сдвиги и другие вариации помогают модели лучше обобщать.";
+      }
+      if (text.includes("transfer") || text.includes("перенос")) {
+        return "Transfer learning показывает использование готовой нейросетевой архитектуры: модель дообучается под новую задачу быстрее, чем при обучении с нуля.";
+      }
+      if (text.includes("детек") || text.includes("объект")) {
+        return "Детекция объектов показывает прикладной результат: модель не только определяет класс, но и находит объекты внутри изображения.";
+      }
+      return "Визуал показывает этап эксперимента по компьютерному зрению: подготовку данных, обучение модели или проверку качества распознавания.";
+    }
+
+    if (slug === "nlp-text-processing") {
+      if (text.includes("тональ") || text.includes("сарказ")) {
+        return "Диаграмма показывает разбор текста по тональности и сарказму: задача не просто классифицировать отзыв, а уловить скрытую интонацию.";
+      }
+      if (text.includes("word2vec") || text.includes("семан")) {
+        return "Визуализация семантики показывает, как модель представляет слова в числовом пространстве и находит близкие по смыслу связи.";
+      }
+      if (text.includes("мешок") || text.includes("bow")) {
+        return "Bag of Words показывает базовое представление текста через частоты слов: простой, но полезный шаг перед сравнением с более умными embeddings.";
+      }
+      return "Визуал показывает этап NLP-эксперимента: подготовку текста, извлечение признаков или оценку того, как модель понимает смысл и тон.";
+    }
+
+    if (visibleLabel) {
+      return `Кадр «${visibleLabel}» из кейса «${name}». Тултип добавлен как краткая подпись к изображению там, где обычная подпись не показывается поверх слайда.`;
+    }
+
+    return `Дополнительный визуал из кейса «${name}». Тултип используется как краткая подпись к изображению там, где нет отдельного hover-описания.`;
+  }
+
+  function enrichVisualInfos(slug, visuals, caseTitle = "") {
+    return (Array.isArray(visuals) ? visuals : []).map((visual) => {
+      if (!visual || visual.type === "section") return visual;
+
+      const nextVisual = { ...visual };
+      if (!nextVisual.caption && !nextVisual.info) {
+        nextVisual.info = describeVisualInfo(slug, nextVisual.title, nextVisual.alt, caseTitle);
+      }
+
+      if (Array.isArray(nextVisual.slides)) {
+        nextVisual.slides = nextVisual.slides.map((slide) => ({
+          ...slide,
+          info: slide.info || describeVisualInfo(slug, slide.title, slide.alt, caseTitle)
+        }));
+      }
+
+      return nextVisual;
+    });
+  }
+
+  function sortByOrder(items) {
+    return [...items].sort((left, right) => {
+      const leftOrder = Number(left?.sort_order ?? 0);
+      const rightOrder = Number(right?.sort_order ?? 0);
+      return leftOrder - rightOrder;
+    });
+  }
+
+  function formatCaseNumber(index, total) {
+    return `${String(index + 1).padStart(2, "0")} / ${String(total).padStart(2, "0")}`;
+  }
+
+  function normalizeAccent(value) {
+    return toTrimmedString(value, DEFAULT_CASE_ACCENT);
+  }
+
+  function normalizeBackground(value) {
+    return toTrimmedString(value, DEFAULT_CASE_BG);
+  }
+
+  function normalizeLiveUrl(value) {
+    const normalizedValue = toTrimmedString(value);
+    if (!normalizedValue) return "";
+
+    const loweredValue = normalizedValue.toLowerCase();
+    if (loweredValue === "null" || loweredValue === "undefined") {
+      return "";
+    }
+
+    return normalizedValue;
+  }
+
+  // Версия кэша изображений. Поднимайте это число после перезаливки картинок,
+  // чтобы браузеры перезабрали обновлённые файлы, а не показывали старые
+  // (в т.ч. обрезанные) версии из HTTP-кэша.
+  const IMAGE_CACHE_VERSION = "2";
+  // Кейсы, для которых на сервере лежат облегчённые превью в подпапке /preview/
+  // (webp, генерируются из оригиналов). Для них инлайн грузит лёгкое превью, а
+  // полноразмерная версия открывается по клику (см. getFullQualityImageSrc в
+  // case-view.js — там превью-URL разворачивается обратно в оригинал).
+  const PREVIEW_SLUGS = new Set([
+    "otrazhenie-vselennoy", "formula-1", "moloko", "na-poroge-pubertata",
+    "ckbp-leti", "sovremennoe-iskusstvo", "computer-vision-ml", "nlp-text-processing"
+  ]);
+  function withVersion(url) {
+    if (!url) return url;
+    return url + (url.indexOf("?") === -1 ? "?" : "&") + "v=" + IMAGE_CACHE_VERSION;
+  }
+  // Инлайн-версия картинки (быстрая загрузка). Для preview-кейсов возвращаем
+  // /assets/cases/<slug>/preview/<file>.webp; для остальных — оригинал с версией.
+  function proxyImageUrl(value) {
+    const raw = toTrimmedString(value);
+    if (!raw) return raw;
+    const m = raw.match(/^(.*\/assets\/cases\/)([^/]+)\/([^/?#]+)$/);
+    if (m && PREVIEW_SLUGS.has(m[2])) {
+      return withVersion(m[1] + m[2] + "/preview/" + m[3] + ".webp");
+    }
+    return withVersion(raw);
+  }
+
+  function normalizeVisual(visual, index, caseTitle) {
+    const data = unpackAdvancedVisual(visual);
+    const requestedType = toTrimmedString(data?.type);
+    if (requestedType === "section") {
+      return {
+        type: "section",
+        title: toTrimmedString(data?.title),
+        description: toTrimmedString(data?.description ?? data?.caption),
+        eyebrow: toTrimmedString(data?.eyebrow, "этап")
+      };
+    }
+
+    const isVideo = requestedType === "video";
+    const src = isVideo ? toTrimmedString(data?.image_url ?? data?.src) : proxyImageUrl(data?.image_url ?? data?.src);
+    const title = toTrimmedString(data?.title, `Visual ${index + 1}`);
+    const caption = toTrimmedString(data?.caption);
+    const alt = toTrimmedString(data?.alt_text ?? data?.alt, `${caseTitle} visual ${index + 1}`);
+    const slides = Array.isArray(data?.slides)
+      ? data.slides
+        .map((slide, slideIndex) => {
+          const slideSrc = proxyImageUrl(slide?.image_url ?? slide?.src);
+          if (!slideSrc) return null;
+          const slideTitle = toTrimmedString(slide?.title, `Страница ${slideIndex + 1}`);
+          const slideAlt = toTrimmedString(slide?.alt_text ?? slide?.alt, `${caseTitle} page ${slideIndex + 1}`);
+
+          return {
+            src: slideSrc,
+            title: slideTitle,
+            alt: slideAlt,
+            info: normalizeVisualInfo(slide?.info_text ?? slide?.infoText ?? slide?.info ?? slide?.description),
+            // fit — показывать кадр целиком (contain, без обрезки); mobile — узкий
+            // (телефонный) кадр по центру.
+            fit: Boolean(slide?.fit),
+            mobile: Boolean(slide?.mobile)
+          };
+        })
+        .filter(Boolean)
+      : [];
+    const type = isVideo && src
+      ? "video"
+      : (requestedType === "site-preview" || requestedType === "mobile-slider") && slides.length ? requestedType : "image";
+    if (!src && !slides.length && !title && !caption) return null;
+
+    const layout = data?.layout === "half" ? "half" : "full";
+    const heightLayoutValue = toTrimmedString(data?.height_layout ?? data?.heightLayout, "half");
+    const heightLayout = layout === "half" && heightLayoutValue === "full" ? "full" : "half";
+
+    return {
+      heightLayout,
+      isPlaceholder: !src,
+      layout,
+      ratio: toTrimmedString(data?.ratio, layout === "half" ? "4 / 5" : "16 / 9"),
+      slides,
+      src,
+      title,
+      type,
+      alt,
+      caption,
+      info: normalizeVisualInfo(data?.info_text ?? data?.infoText ?? data?.info ?? data?.description),
+      // newGroup — жёсткая граница: этот слайдер не вливается в предыдущий,
+      // а начинает свой, отдельный (например, экраны проекта и отдельно
+      // презентация в одном кейсе, каждая — свой независимый слайдер).
+      newGroup: Boolean(data?.new_group ?? data?.newGroup),
+      presentation: Boolean(data?.presentation ?? data?.isPresentation)
+    };
+  }
+
+  // В кейсе должен быть ОДИН слайдер на группу: экраны мобильного слайдера (и
+  // любых дополнительных слайдеров) вливаются слайдами в первый site-preview
+  // своей группы. Если site-preview нет (чисто мобильный кейс) — оставляем как есть.
+  function mergeSliderVisuals(visuals) {
+    const list = Array.isArray(visuals) ? visuals : [];
+    const result = [];
+    let target = null;
+
+    list.forEach((visual) => {
+      if (!visual) return;
+
+      if (visual.type === "site-preview" && Array.isArray(visual.slides)) {
+        if (visual.newGroup) target = null;
+        if (target) {
+          target.slides.push(...visual.slides);
+        } else {
+          target = { ...visual, slides: [...visual.slides] };
+          result.push(target);
+        }
+        return;
+      }
+
+      if (visual.type === "mobile-slider" && Array.isArray(visual.slides)) {
+        // Экраны из мобильного слайдера показываем в узком (телефонном) кадре
+        // по центру (mobile), а не на всю ширину. Но только если их есть куда
+        // влить: без активного site-preview мобильный слайдер остаётся своим
+        // отдельным телефонным мокапом, а не превращается в фейковый site-preview.
+        if (visual.newGroup) target = null;
+        if (target) {
+          target.slides.push(...visual.slides.map((slide) => ({ ...slide, mobile: true })));
+          return;
+        }
+        result.push(visual);
+        return;
+      }
+
+      result.push(visual);
+    });
+
+    return result;
+  }
+
+  function forceImagesIntoSitePreview(slug, visuals, caseTitle = "Экраны проекта") {
+    const list = Array.isArray(visuals) ? visuals.filter(Boolean) : [];
+    if (!FORCE_IMAGE_SLIDER_SLUGS.has(slug) || !list.length) return list;
+    if (list.some((visual) => visual.type === "site-preview")) return list;
+
+    const slides = list
+      .flatMap((visual, visualIndex) => {
+        if ((visual.type === "site-preview" || visual.type === "mobile-slider") && Array.isArray(visual.slides)) {
+          return visual.slides;
+        }
+
+        if (!visual.src) return [];
+
+        const visualTitle = toTrimmedString(visual.title);
+        const isDefaultTitle = /^Visual\s+\d+$/i.test(visualTitle);
+        const title = toTrimmedString(
+          isDefaultTitle ? visual.alt || visual.caption : visualTitle || visual.alt || visual.caption,
+          `Экран ${visualIndex + 1}`
+        );
+        const ratio = toTrimmedString(visual.ratio);
+        const mobileLabel = `${title} ${toTrimmedString(visual.caption)}`;
+        const isMobileSlide = Boolean(visual.mobile) || ratio === "9 / 16" || /^mobile\b/i.test(mobileLabel);
+        return [{
+          src: visual.src,
+          title,
+          alt: toTrimmedString(visual.alt, title),
+          info: normalizeVisualInfo(visual.info) || normalizeVisualInfo(visual.caption) || describeVisualInfo(slug, title, visual.alt, caseTitle),
+          fit: true,
+          mobile: isMobileSlide
+        }];
+      });
+
+    if (slides.length < 2) return list;
+
+    return [{
+      type: "site-preview",
+      layout: "full",
+      heightLayout: "half",
+      ratio: "16 / 9",
+      src: "",
+      title: slug === "data-visualization-geo" ? "Визуализации данных" : caseTitle,
+      alt: caseTitle,
+      caption: "",
+      isPlaceholder: false,
+      slides
+    }];
+  }
+
+  // Подмешиваем локальное видео кейса первым визуалом. Вызывается ПОСЛЕ слияния
+  // слайдеров/форс-слайдера, чтобы видео не попало слайдом в site-preview.
+  function prependCaseVideos(slug, visuals) {
+    const list = Array.isArray(visuals) ? visuals.filter(Boolean) : [];
+    const video = VIDEO_BY_SLUG[slug];
+    if (!video || !video.src) return list;
+    // Если видео уже пришло из данных — не дублируем.
+    if (list.some((visual) => visual && visual.type === "video")) return list;
+
+    const videoVisual = {
+      type: "video",
+      layout: "full",
+      heightLayout: "half",
+      ratio: toTrimmedString(video.ratio, "16 / 9"),
+      src: video.src,
+      title: toTrimmedString(video.title, "Видео"),
+      alt: toTrimmedString(video.alt, video.title || "Видео"),
+      caption: toTrimmedString(video.caption),
+      info: "",
+      slides: [],
+      isPlaceholder: false,
+      newGroup: false,
+      presentation: false
+    };
+
+    return [videoVisual, ...list];
+  }
+
+  function buildVisualSection(title, description, eyebrow = "этап") {
+    return {
+      type: "section",
+      title,
+      description,
+      eyebrow
+    };
+  }
+
+  function addComputerVisionVisualSections(slug, visuals) {
+    const list = Array.isArray(visuals) ? visuals.filter(Boolean) : [];
+    if (slug !== "computer-vision-ml" || !list.length || list.some((visual) => visual.type === "section")) {
+      return list;
+    }
+
+    const sections = [
+      {
+        index: 0,
+        data: buildVisualSection(
+          "Классификация изображений",
+          "Базовые эксперименты с распознаванием: от подготовки набора данных до проверки предсказаний модели на тестовых изображениях.",
+          "01 / модель"
+        )
+      },
+      {
+        index: 2,
+        data: buildVisualSection(
+          "CNN, аугментация и обобщение",
+          "Следующий слой работы: сверточная сеть, увеличение вариативности данных и сравнение того, как модель держится на новых примерах.",
+          "02 / обучение"
+        )
+      },
+      {
+        index: 4,
+        data: buildVisualSection(
+          "Transfer learning и детекция объектов",
+          "Финальный блок визуалов показывает более прикладной сценарий: дообучение готовой архитектуры и поиск объектов на изображении.",
+          "03 / практика"
+        )
+      }
+    ];
+    const enriched = [];
+
+    list.forEach((visual, index) => {
+      sections
+        .filter((section) => section.index === index)
+        .forEach((section) => enriched.push(section.data));
+      enriched.push(visual);
+    });
+
+    return enriched;
+  }
+
+  function normalizeDetails(details) {
+    return sortByOrder(Array.isArray(details) ? details : [])
+      .map((detail) => ({
+        case_id: detail?.case_id || "",
+        label: toTrimmedString(detail?.label),
+        value: toTrimmedString(detail?.value)
+      }))
+      .filter((detail) => detail.label && detail.value);
+  }
+
+  function normalizeSupabaseCases(cases, details, visuals) {
+    const detailsByCaseId = new Map();
+    const visualsByCaseId = new Map();
+
+    normalizeDetails(details).forEach((detail) => {
+      const caseId = detail.case_id;
+      if (!caseId) return;
+      if (!detailsByCaseId.has(caseId)) detailsByCaseId.set(caseId, []);
+      detailsByCaseId.get(caseId).push({
+        label: detail.label,
+        value: detail.value
+      });
+    });
+
+    sortByOrder(Array.isArray(visuals) ? visuals : []).forEach((visual) => {
+      const caseId = visual?.case_id;
+      if (!caseId) return;
+      if (!visualsByCaseId.has(caseId)) visualsByCaseId.set(caseId, []);
+      visualsByCaseId.get(caseId).push(visual);
+    });
+
+    const sortedCases = sortByOrder(Array.isArray(cases) ? cases : []);
+    const total = sortedCases.length;
+
+    return sortedCases.map((item, index) => {
+      const caseTitle = toTrimmedString(item?.title, "CASE");
+      const caseDetails = detailsByCaseId.get(item.id) || [];
+      const rawCaseVisuals = visualsByCaseId.get(item.id) || [];
+      const slug = toTrimmedString(item?.slug, `case-${index + 1}`);
+      const caseVisuals = prependCaseVideos(slug, enrichVisualInfos(slug, addComputerVisionVisualSections(slug, forceImagesIntoSitePreview(slug, mergeSliderVisuals(
+        (visualsByCaseId.get(item.id) || [])
+          .map((visual, visualIndex) => normalizeVisual(visual, visualIndex, caseTitle))
+          .filter(Boolean)
+      ), caseTitle)), caseTitle));
+
+      const normalizedCase = {
+        slug,
+        number: formatCaseNumber(index, total),
+        category: resolveCategory(item?.category, toTrimmedString(item?.slug)),
+        name: caseTitle,
+        subtitle: toTrimmedString(item?.subtitle),
+        desc: toTrimmedString(item?.card_description),
+        summary: toTrimmedString(item?.summary),
+        role: toTrimmedString(item?.role_label),
+        story: normalizeTextArray(item?.story_paragraphs),
+        details: caseDetails,
+        quote: toTrimmedString(item?.quote),
+        stack: normalizeTextArray(item?.stack_items),
+        year: toTrimmedString(item?.year),
+        accent: normalizeAccent(item?.accent_color),
+        bg: normalizeBackground(item?.background_css),
+        liveUrl: normalizeLiveUrl(item?.live_url),
+        visuals: caseVisuals
+      };
+
+      if (DEBUG_CASES_API) {
+        window.__casesApiDebug = window.__casesApiDebug || {};
+        window.__casesApiDebug[normalizedCase.slug] = {
+          rawCase: item,
+          rawVisuals: rawCaseVisuals,
+          normalizedVisuals: caseVisuals
+        };
+
+        console.log(`[cases api debug] ${normalizedCase.slug}`, window.__casesApiDebug[normalizedCase.slug]);
+        console.log(
+          `[cases api json] ${normalizedCase.slug}\n${JSON.stringify(window.__casesApiDebug[normalizedCase.slug], null, 2)}`
+        );
+      }
+
+      return normalizedCase;
+    });
+  }
+
+  function normalizeLocalCases(cases) {
+    const normalizedCases = Array.isArray(cases) ? [...cases] : [];
+    const total = normalizedCases.length;
+
+    return normalizedCases.map((item, index) => {
+      const caseTitle = toTrimmedString(item?.name, "CASE");
+      const caseDetails = (Array.isArray(item?.details) ? item.details : [])
+        .map((detail) => ({
+          label: toTrimmedString(detail?.label),
+          value: toTrimmedString(detail?.value)
+        }))
+        .filter((detail) => detail.label && detail.value);
+      const slug = toTrimmedString(item?.slug, `case-${index + 1}`);
+      const caseVisuals = prependCaseVideos(slug, enrichVisualInfos(slug, addComputerVisionVisualSections(slug, forceImagesIntoSitePreview(slug, mergeSliderVisuals(
+        (Array.isArray(item?.visuals) ? item.visuals : [])
+          .map((visual, visualIndex) => normalizeVisual(visual, visualIndex, caseTitle))
+          .filter(Boolean)
+      ), caseTitle)), caseTitle));
+
+      return {
+        ...item,
+        slug,
+        number: formatCaseNumber(index, total),
+        category: resolveCategory(item?.category, toTrimmedString(item?.slug)),
+        name: caseTitle,
+        subtitle: toTrimmedString(item?.subtitle),
+        desc: toTrimmedString(item?.desc),
+        summary: toTrimmedString(item?.summary),
+        role: toTrimmedString(item?.role),
+        story: normalizeTextArray(item?.story),
+        details: caseDetails,
+        quote: toTrimmedString(item?.quote),
+        stack: normalizeTextArray(item?.stack),
+        year: toTrimmedString(item?.year),
+        accent: normalizeAccent(item?.accent),
+        bg: normalizeBackground(item?.bg),
+        liveUrl: normalizeLiveUrl(item?.liveUrl),
+        visuals: caseVisuals
+      };
+    });
+  }
+
+  function renumberCases(cases) {
+    const normalizedCases = Array.isArray(cases) ? cases : [];
+    const total = normalizedCases.length;
+
+    return normalizedCases.map((item, index) => ({
+      ...item,
+      number: formatCaseNumber(index, total)
+    }));
+  }
+
+  function mergeMissingLocalCases(primaryCases, localCases) {
+    const mergedCases = Array.isArray(primaryCases) ? [...primaryCases] : [];
+    
+    const localCasesBySlug = new Map();
+    (Array.isArray(localCases) ? localCases : []).forEach((item) => {
+      const slug = toTrimmedString(item?.slug);
+      if (slug) localCasesBySlug.set(slug, item);
+    });
+
+    const resultCases = mergedCases.map((remoteCase) => {
+      const slug = toTrimmedString(remoteCase?.slug);
+      const localCase = localCasesBySlug.get(slug);
+      if (localCase) {
+        const remoteVisuals = Array.isArray(remoteCase.visuals) ? remoteCase.visuals : [];
+        const localVisuals = Array.isArray(localCase.visuals) ? localCase.visuals : [];
+
+        return {
+          ...remoteCase,
+          visuals: remoteVisuals.length ? remoteVisuals : localVisuals,
+          stack: localCase.stack || remoteCase.stack,
+          details: localCase.details || remoteCase.details,
+          story: localCase.story || remoteCase.story,
+          name: localCase.name || remoteCase.name,
+          subtitle: localCase.subtitle || remoteCase.subtitle,
+          desc: localCase.desc || remoteCase.desc,
+          summary: localCase.summary || remoteCase.summary
+        };
+      }
+      return remoteCase;
+    });
+
+    const knownSlugs = new Set(
+      resultCases
+        .map((item) => toTrimmedString(item?.slug))
+        .filter(Boolean)
+    );
+
+    return renumberCases(resultCases);
+  }
+
+  async function fetchCasesFromApi() {
+    const controller = new AbortController();
+    const timeout = window.setTimeout(() => controller.abort(), CASES_FETCH_TIMEOUT_MS);
+
+    const response = await fetch(CASES_API_ENDPOINT, {
+      cache: "no-store",
+      signal: controller.signal,
+      headers: {
+        Accept: "application/json"
+      }
+    }).finally(() => window.clearTimeout(timeout));
+
+    if (!response.ok) {
+      throw new Error(`Cases API responded with ${response.status}`);
+    }
+
+    const payload = await response.json();
+
+    if (DEBUG_CASES_API) {
+      console.log("[cases api payload debug]", payload?.debug || null);
+      console.log(`[cases api payload json]\n${JSON.stringify(payload?.debug || null, null, 2)}`);
+    }
+
+    return {
+      cases: Array.isArray(payload?.cases) ? payload.cases : [],
+      details: Array.isArray(payload?.details) ? payload.details : [],
+      visuals: Array.isArray(payload?.visuals) ? payload.visuals : []
+    };
+  }
+
+  async function loadCases() {
+    const fallbackCases = normalizeLocalCases(portfolioContent.cases);
+
+    try {
+      const payload = await fetchCasesFromApi();
+      const remoteCases = normalizeSupabaseCases(payload.cases, payload.details, payload.visuals);
+      return mergeMissingLocalCases(remoteCases, fallbackCases);
+    } catch (error) {
+      console.warn("Failed to load cases from the server API. Falling back to local content.", error);
+      return renumberCases(fallbackCases);
+    }
+  }
+
+  window.CasesStore = {
+    loadCases,
+    mergeMissingLocalCases,
+    normalizeLocalCases,
+    resolveCategory,
+    CASE_CATEGORIES
+  };
+})();

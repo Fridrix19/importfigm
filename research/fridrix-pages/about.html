@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Обо мне — FRIDRIX</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <!-- Custom Cursor -->
+    <div class="cursor"></div>
+    <div class="cursor-follower"></div>
+
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-container">
+            <a href="index.html" class="logo">FRIDRIX</a>
+            <div class="nav-links">
+                <a href="portfolio.html" class="nav-link">Работы</a>
+                <a href="about.html" class="nav-link active">О себе</a>
+                <a href="services.html" class="nav-link">Услуги</a>
+                <a href="faq.html" class="nav-link" title="Часто задаваемые вопросы">Вопросы</a>
+                <a href="contact.html" class="nav-link">Контакты</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Bottom Navigation -->
+    <nav class="mobile-nav">
+        <a href="portfolio.html" class="mobile-nav-item">
+            <img src="img/Portfolio.png" alt="Работы" class="mobile-nav-icon">
+            <span class="mobile-nav-label">Работы</span>
+        </a>
+        <a href="about.html" class="mobile-nav-item active">
+            <img src="img/Aboutme.png" alt="О себе" class="mobile-nav-icon">
+            <span class="mobile-nav-label">О себе</span>
+        </a>
+        <a href="services.html" class="mobile-nav-item">
+            <img src="img/Price.png" alt="Услуги" class="mobile-nav-icon">
+            <span class="mobile-nav-label">Услуги</span>
+        </a>
+        <a href="faq.html" class="mobile-nav-item">
+            <span class="mobile-nav-icon mobile-nav-icon-fallback" aria-hidden="true">?</span>
+            <span class="mobile-nav-label">Вопросы</span>
+        </a>
+        <a href="contact.html" class="mobile-nav-item">
+            <img src="img/Contact.png" alt="Контакты" class="mobile-nav-icon">
+            <span class="mobile-nav-label">Контакты</span>
+        </a>
+    </nav>
+
+    <!-- About Section -->
+    <section class="about" id="about" style="padding-top: 120px; min-height: 80vh;">
+        <div class="about-container">
+            <div class="about-content">
+                    <h2 class="section-title">О себе</h2>
+                    <div class="about-body">
+                        <p class="about-text">
+                            Привет, я FRIDRIX — графический дизайнер и разработчик. Уже несколько лет помогаю брендам и
+                            продуктам выглядеть цельно в цифре: от первой идеи и визуальной концепции до рабочего
+                            интерфейса или сайта. Мне важно не просто «красиво нарисовать», а чтобы решение работало на
+                            задачу бизнеса и было понятно пользователю.
+                        </p>
+                        <p class="about-text">
+                            Путь всегда начинается с контекста: кто аудитория, какие ограничения по срокам и бюджету, что
+                            уже есть у заказчика. Я совмещаю UX/UI, вёрстку и моушн — это позволяет не терять смысл между
+                            этапами: дизайн не «уезжает» от реализации, а анимация усиливает сообщение, а не отвлекает от
+                            него.
+                        </p>
+                        <p class="about-text">
+                            В портфолио — лендинги и веб‑приложения, айдентика и презентации, моушн для продуктовых и
+                            медиа‑проектов, мобильные интерфейсы. Участвую в хакатонах и конкурсах: это держит в тонусе и
+                            даёт опыт быстрых итераций под дедлайн. Постоянно подтягиваю стек: Figma, код, After Effects
+                            и AI‑инструменты.
+                        </p>
+                        <p class="about-text">
+                            Работаю прозрачно по этапам: согласовываем объём, фиксируем ожидания по срокам и формату сдачи.
+                            Открыт к долгосрочному сотрудничеству и разовым проектам — от аудита до полного цикла «от
+                            исследования до продакшена».
+                        </p>
+                    </div>
+                    <div class="skills">
+                        <div class="skill-item">Python</div>
+                        <div class="skill-item">Figma</div>
+                        <div class="skill-item">HTML/CSS</div>
+                        <div class="skill-item">JavaScript</div>
+                        <div class="skill-item">After Effects</div>
+                        <div class="skill-item">React</div>
+                        <div class="skill-item">Photoshop</div>
+                        <div class="skill-item">Illustrator</div>
+                        <div class="skill-item">Premiere Pro</div>
+                        <div class="skill-item">FL Studio</div>
+                    </div>
+
+                    <h3 class="ai-section-title">AI Инструменты</h3>
+                    <div class="skills ai-skills">
+                        <div class="skill-item">Cursor</div>
+                        <div class="skill-item">GPT</div>
+                        <div class="skill-item">API</div>
+                        <div class="skill-item">Stable Diffusion</div>
+                        <div class="skill-item">Midjourney</div>
+                        <div class="skill-item">ReCraft</div>
+                    </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer" id="contacts">
+        <div class="footer-container">
+            <div class="footer-form-block">
+                <div class="footer-quick-links">
+                    <a href="https://t.me/fridrix_order" class="footer-contact-link" target="_blank"
+                        rel="noopener noreferrer">Telegram</a>
+                    <a href="mailto:hello@fridrix.design" class="footer-contact-link">Email</a>
+                </div>
+                <form id="contactForm" class="contact-form contact-form--footer">
+                    <div class="footer-form-row">
+                        <div class="form-group form-group--footer">
+                            <label for="name">Имя</label>
+                            <input type="text" id="name" name="name" class="form-input form-input--footer" required
+                                placeholder="Ваше имя">
+                        </div>
+                        <div class="form-group form-group--footer">
+                            <label for="contact">Контакт</label>
+                            <input type="text" id="contact" name="contact" class="form-input form-input--footer" required
+                                placeholder="@ или email">
+                        </div>
+                    </div>
+                    <div class="form-group form-group--footer">
+                        <label for="message">Сообщение</label>
+                        <textarea id="message" name="message" class="form-input form-input--footer" rows="3" required
+                            placeholder="Кратко о задаче..."></textarea>
+                    </div>
+                    <button type="submit" class="btn-primary btn-footer-submit">Отправить</button>
+                </form>
+            </div>
+            <p class="footer-copy">&copy; 2024 FRIDRIX. Все права защищены.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Контакты — FRIDRIX</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <!-- Custom Cursor -->
+    <div class="cursor"></div>
+    <div class="cursor-follower"></div>
+
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-container">
+            <a href="index.html" class="logo">FRIDRIX</a>
+            <div class="nav-links">
+                <a href="portfolio.html" class="nav-link">Работы</a>
+                <a href="about.html" class="nav-link">О себе</a>
+                <a href="services.html" class="nav-link">Услуги</a>
+                <a href="faq.html" class="nav-link" title="Часто задаваемые вопросы">Вопросы</a>
+                <a href="contact.html" class="nav-link active">Контакты</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Bottom Navigation -->
+    <nav class="mobile-nav">
+        <a href="portfolio.html" class="mobile-nav-item">
+            <img src="img/Portfolio.png" alt="Работы" class="mobile-nav-icon">
+            <span class="mobile-nav-label">Работы</span>
+        </a>
+        <a href="about.html" class="mobile-nav-item">
+            <img src="img/Aboutme.png" alt="О себе" class="mobile-nav-icon">
+            <span class="mobile-nav-label">О себе</span>
+        </a>
+        <a href="services.html" class="mobile-nav-item">
+            <img src="img/Price.png" alt="Услуги" class="mobile-nav-icon">
+            <span class="mobile-nav-label">Услуги</span>
+        </a>
+        <a href="faq.html" class="mobile-nav-item">
+            <span class="mobile-nav-icon mobile-nav-icon-fallback" aria-hidden="true">?</span>
+            <span class="mobile-nav-label">Вопросы</span>
+        </a>
+        <a href="contact.html" class="mobile-nav-item active">
+            <img src="img/Contact.png" alt="Контакты" class="mobile-nav-icon">
+            <span class="mobile-nav-label">Контакты</span>
+        </a>
+    </nav>
+
+    <!-- Contact Section -->
+    <section class="contact-page contact-page--simple" style="padding-top: 120px;">
+        <div class="contact-container">
+            <h2 class="section-title">Связаться со мной</h2>
+            <p class="contact-desc">
+                Готов обсудить проект: оставьте сообщение в форме внизу страницы — откроется почтовый клиент с
+                заполненным письмом. Для быстрой связи используйте кнопки Telegram и Email в подвале.
+            </p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer" id="contacts">
+        <div class="footer-container">
+            <div class="footer-form-block">
+                <div class="footer-quick-links">
+                    <a href="https://t.me/fridrix_order" class="footer-contact-link" target="_blank"
+                        rel="noopener noreferrer">Telegram</a>
+                    <a href="mailto:hello@fridrix.design" class="footer-contact-link">Email</a>
+                </div>
+                <form id="contactForm" class="contact-form contact-form--footer">
+                    <div class="footer-form-row">
+                        <div class="form-group form-group--footer">
+                            <label for="name">Имя</label>
+                            <input type="text" id="name" name="name" class="form-input form-input--footer" required
+                                placeholder="Ваше имя">
+                        </div>
+                        <div class="form-group form-group--footer">
+                            <label for="contact">Контакт</label>
+                            <input type="text" id="contact" name="contact" class="form-input form-input--footer" required
+                                placeholder="@ или email">
+                        </div>
+                    </div>
+                    <div class="form-group form-group--footer">
+                        <label for="message">Сообщение</label>
+                        <textarea id="message" name="message" class="form-input form-input--footer" rows="3" required
+                            placeholder="Кратко о задаче..."></textarea>
+                    </div>
+                    <button type="submit" class="btn-primary btn-footer-submit">Отправить</button>
+                </form>
+            </div>
+            <p class="footer-copy">&copy; 2024 FRIDRIX. Все права защищены.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

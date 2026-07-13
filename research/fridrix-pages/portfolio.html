@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Портфолио — FRIDRIX</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://player.vimeo.com/api/player.js"></script>
+</head>
+<body>
+    <!-- Custom Cursor -->
+    <div class="cursor"></div>
+    <div class="cursor-follower"></div>
+
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-container">
+            <a href="index.html" class="logo">FRIDRIX</a>
+            <div class="nav-links">
+                <a href="portfolio.html" class="nav-link active">Работы</a>
+                <a href="about.html" class="nav-link">О себе</a>
+                <a href="services.html" class="nav-link">Услуги</a>
+                <a href="faq.html" class="nav-link" title="Часто задаваемые вопросы">Вопросы</a>
+                <a href="contact.html" class="nav-link">Контакты</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Bottom Navigation -->
+    <nav class="mobile-nav">
+        <a href="portfolio.html" class="mobile-nav-item active">
+            <img src="img/Portfolio.png" alt="Работы" class="mobile-nav-icon">
+            <span class="mobile-nav-label">Работы</span>
+        </a>
+        <a href="about.html" class="mobile-nav-item">
+            <img src="img/Aboutme.png" alt="О себе" class="mobile-nav-icon">
+            <span class="mobile-nav-label">О себе</span>
+        </a>
+        <a href="services.html" class="mobile-nav-item">
+            <img src="img/Price.png" alt="Услуги" class="mobile-nav-icon">
+            <span class="mobile-nav-label">Услуги</span>
+        </a>
+        <a href="faq.html" class="mobile-nav-item">
+            <span class="mobile-nav-icon mobile-nav-icon-fallback" aria-hidden="true">?</span>
+            <span class="mobile-nav-label">Вопросы</span>
+        </a>
+        <a href="contact.html" class="mobile-nav-item">
+            <img src="img/Contact.png" alt="Контакты" class="mobile-nav-icon">
+            <span class="mobile-nav-label">Контакты</span>
+        </a>
+    </nav>
+
+
+    <!-- Work Header -->
+    <section class="work-header" aria-label="Реализованные проекты" style="padding-top: 120px;">
+        <h2 class="work-heading">Реализованные проекты</h2>
+        <!-- Mode Tabs -->
+        <div class="mode-tabs" aria-label="Режимы портфолио">
+            <div class="mode-tabs-wrapper">
+                <div class="mode-tabs-container" role="tablist" aria-label="Выбор режима">
+                    <button class="mode-tab active" data-mode="desktop" type="button" role="tab" aria-selected="true">Декстоп разработка</button>
+                    <button class="mode-tab" data-mode="motion" type="button" role="tab" aria-selected="false">Анимация</button>
+                    <button class="mode-tab" data-mode="mobile" type="button" role="tab" aria-selected="false">Мобильная разработка</button>
+                    <button class="mode-tab" data-mode="gamedev" type="button" role="tab" aria-selected="false">Геймдев</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Filter Section Desktop -->
+    <section class="filters" id="work" data-mode-section="desktop">
+        <div class="filter-wrapper">
+            <div class="filter-container">
+                <button class="filter-btn active" data-filter="all">Все</button>
+                <button class="filter-btn" data-filter="web">WEB-разработка</button>
+                <button class="filter-btn" data-filter="graphic">ГРАФИЧЕСКИЙ ДИЗАЙН</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Filter Section Mobile -->
+    <section class="filters" data-mode-section="mobile">
+        <div class="filter-wrapper">
+            <div class="filter-container">
+                <button class="filter-btn active" data-filter="all">Все</button>
+                <button class="filter-btn" data-filter="app">Приложения</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Grid -->
+    <section class="projects desktop-projects" data-mode-section="desktop">
+        <div class="projects-wrapper">
+            <div class="projects-container">
+                <!-- WEB Projects -->
+                <a href="product.html?id=36" class="project-card-link">
+                    <article class="project-card" data-category="web">
+                        <div class="project-image" style="background-image: url('img/sql/Физическая реализация концептуальной модели.png'); background-size: cover; background-position: center;"></div>
+                        <div class="project-card-info">
+                            <span class="project-category">Информационные системы • SQL Server</span>
+                            <h3 class="project-title">ИС центра реабилитации</h3>
+                            <p class="project-description">Курсовой проект: моделирование бизнес-процессов, проектирование базы данных и автоматизация работы реабилитационного центра</p>
+                            <span class="project-link">Подробнее →</span>
+                        </div>
+                    </article>
+                </a>
+
+                <a href="product.html?id=31" class="project-card-link">
+                    <article class="project-card" data-category="web">
+                        <span class="project-badge project-badge--diploma">Дипломная работа</span>
+                        <div class="project-image" style="background-image: url('https://univendbook.vercel.app/heropage/img/1.png'); background-size: cover; background-position: center;"></div>
+                        <div class="project-card-info">
+                            <span class="project-category">WEB-разработка</span>
+                            <h3 class="project-title">УниВенд</h3>
+                            <p class="project-description">Интерактивное цифровое руководство по контенту бренда: 55 экранов, поиск, адаптив, анимации, видео- и музыкальная система</p>
+                            <span class="project-link">Подробнее →</span>
+                        </div>
+                    </article>
+                </a>
+
+                <a href="product.html?id=32" class="project-card-link">
+                    <article class="project-card project-card--hackathon" data-category="web">
+                        <span class="project-badge project-badge--hackathon">Хакатон</span>
+                        <div class="project-image" style="background-image: url('img/profibe/1.png'); background-size: cover; background-position: center;"></div>
+                        <div class="project-card-info">
+                            <span class="project-category">WEB-разработка</span>
+                            <h3 class="project-title">Профайб</h3>
+                            <p class="project-description">Сервис, который помогает прочувствовать вайб профессии через вопросы, AI-инсайты, вайб-портрет и визуальный мудборд</p>
+                            <span class="project-link">Подробнее →</span>
+                        </div>
+                    </article>
+                </a>
+
+                <a href="product.html?id=33" class="project-card-link">
+                    <article class="project-card project-card--hackathon" data-category="web">
+                        <span class="project-badge project-badge--hackathon">Хакатон</span>
+                        <div class="project-image" style="background-image: url('img/match/1.png'); background-size: cover; background-position: center;"></div>
+                        <div class="project-card-info">
+                            <span class="project-category">WEB-разработка</span>
+                            <h3 class="project-title">Match</h3>
+                            <p class="project-description">AI-приложение для знакомств: нейросети анализируют анкету, интересы и характер, чтобы подобрать идеального партнёра</p>
+                            <span class="project-link">Подробнее →</span>
+                        </div>
+                    </article>
+                </a>
+
+                <a href="product.html?id=34" class="project-card-link">
+                    <article class="project-card project-card--hackathon" data-category="web">
+                        <span class="project-badge project-badge--hackathon">Хакатон</span>
+                        <div class="project-image" style="background-image: url('img/eticdelem/0.png'); background-size: cover; background-position: center;"></div>
+                        <div class="project-card-info">
+                            <span class="project-category">WEB-разработка</span>
+                            <h3 class="project-title">Этическая дилемма</h3>
+                            <p class="project-description">Стратегическая игра про директора компании: решения через свайпы влияют на финансы, репутацию, общественное мнение и штат</p>
+                            <span class="project-link">Подробнее →</span>
+                        </div>
+                    </article>
+                </a>
+
+                <a href="product.html?id=9" class="project-card-link">
+                    <article class="project-card" data-category="web">
+                        <div class="project-image" style="background-image: url('img/inno.png'); background-size: contain; background-position: center;"></div>
+                        <div class="project-card-info">
+                            <span class="project-category">WEB-разработка</span>
+                            <h3 class="project-title">INNNOWHITE</h3>
+                            <p class="project-description">Сайт для производителя отбеливающей косметики. Работа от варфрейма до полноценного продукта с кросс-платформенной адаптацией</p>
+                            <span class="project-link">Подробнее →</span>
+                        </div>
+                    </article>
+                </a>
+
+                <a href="product.html?id=10" class="project-card-link">
+                    <article class="project-card" data-category="web">
+                        <div class="project-image" style="background-image: url('img/beat.png'); background-size: contain; background-position: center;"></div>
+                        <div class="project-card-info">
+                            <span class="project-category">WEB-разработка</span>
+                            <h3 class="project-title">BEATFOUND</h3>
+                            <p class="project-description">Веб-приложение дистрибьютора для продвижения треков и обнаружения совпадений в битах. Работа от варфрейма до полноценного продукта</p>
+                            <span class="project-link">Подробнее →</span>
+                        </div>
+                    </article>
+                </a>
+
+                <a href="product.html?id=11" class="project-card-link">
+                    <article class="project-card project-card--hackathon" data-category="web">
+                        <span class="project-badge project-badge--hackathon">Хакатон</span>
+                        <div class="project-image" style="background-image: url('img/giga1.png'); background-size: contain; background-position: center;"></div>
+                        <div class="project-card-info">
+                            <span class="project-category">WEB-разработка</span>
+                            <h3 class="project-title">ГИГАПИН</h3>
+                            <p class="project-description">Образовательное приложение с системой рейтинга и геймификацией. 2 место на хакатоне кафедры ЦИАТ</p>
+                            <span class="project-link">Подробнее →</span>
+                        </div>
+                    </article>
+                </a>
+
+                <a href="product.html?id=20" class="project-card-link">
+                    <article class="project-card" data-category="web">
+                        <div class="project-image" style="background-image: url('img/zenitraproject/preview/1.png'); background-size: contain; background-position: center;"></div>
+                        <div class="project-card-info">
+                            <span class="project-category">WEB-разработка</span>
+                            <h3 class="project-title">ZENITRA</h3>
+                            <p class="project-description">Экосистема цифровых активов: от визуальной идентичности до технической презентации</p>
+                            <span class="project-link">Подробнее →</span>
+                        </div>
+                    </article>
+                </a>
+
+                <a href="product.html?id=21" class="project-card-link">
+                    <article class="project-card" data-category="web">
+                        <div class="project-image" style="background-image: url('img/axseliratorproject/preview/1.png'); background-size: contain; background-position: center;"></div>
+                        <div class="project-card-info">
+                            <span class="project-category">WEB-разработка</span>
+                            <h3 class="project-title">АКСЕЛЕРАТОР</h3>
+                            <p class="project-description">Лендинг с адаптацией под мобильные устройства + PDF-материалы</p>
+                            <span class="project-link">Подробнее →</span>
+                        </div>
+                    </article>
+                </a>
+
+                <a href="product.html?id=22" class="project-card-link">
+                    <article class="project-card" data-category="web">
+                        <div class="project-image" style="background-image: url('img/kotopolitenproject/preview/1.png'); background-size: contain; background-position: center;"></div>
+                        <div class="project-card-info">
+                            <span class="project-category">WEB-разработка</span>
+                            <h3 class="project-title">KOTOPOLITEN</h3>
+                            <p class="project-description">Концепт лендинга: структура, визуальная система, презентация в PDF</p>
+                            <span class="project-link">Подробнее →</span>
+                        </div>
+                    </article>
+                </a>
+
+                <a href="product.html?id=23" class="project-card-link">
+                    <article class="project-card" data-category="web">
+                        <div class="project-image" style="background-image: url('img/musemproject/preview/1.png'); background-size: contain; background-position: center;"></div>
+                        <div class="project-card-info">
+                            <span class="project-category">WEB-разработка</span>
+                            <h3 class="project-title">МУЗЕЙ ХАОСА</h3>
+                            <p class="project-description">Концепт лендинга: атмосфера, вариативные макеты, 2 PDF-версии</p>
+                            <span class="project-link">Подробнее →</span>
+                        </div>
+                    </article>
+                </a>
+
+                <a href="product.html?id=24" class="project-card-link">
+                    <article class="project-card" data-category="graphic">
+                        <div class="project-image" style="background-image: url('img/presentation_project_meripriyatie/preview/9(previewmain).png'); background-size: contain; background-position: center;"></div>
+                        <div class="project-card-info">
+                            <span class="project-category">ГРАФИЧЕСКИЙ ДИЗАЙН</span>
+                            <h3 class="project-title">ПРЕЗЕНТАЦИЯ МЕРОПРИЯТИЯ</h3>
+                            <p class="project-description">Серия экранов в единой визуальной системе</p>
+                            <span class="project-link">Подробнее →</span>
+                        </div>
+                    </article>
+                </a>
+
+                <a href="product.html?id=25" class="project-card-link">
+                    <article class="project-card" data-category="graphic">
+                        <div class="project-image" style="background-image: url('img/redisign_menu_serebreanye_pribory/1.png'); background-size: contain; background-position: center;"></div>
+                        <div class="project-card-info">
+                            <span class="project-category">ГРАФИЧЕСКИЙ ДИЗАЙН</span>
+                            <h3 class="project-title">РЕДИЗАЙН МЕНЮ</h3>
+                            <p class="project-description">Меню “Серебряные приборы”: сетка, типографика, иерархия</p>
+                            <span class="project-link">Подробнее →</span>
+                        </div>
+                    </article>
+                </a>
+
+                <a href="product.html?id=26" class="project-card-link">
+                    <article class="project-card" data-category="graphic">
+                        <div class="project-image" style="background-image: url('img/retro_walna/3(preview).png'); background-size: contain; background-position: center;"></div>
+                        <div class="project-card-info">
+                            <span class="project-category">ГРАФИЧЕСКИЙ ДИЗАЙН</span>
+                            <h3 class="project-title">RETRO WALNA</h3>
+                            <p class="project-description">Серия вариаций в ретро-эстетике</p>
+                            <span class="project-link">Подробнее →</span>
+                        </div>
+                    </article>
+                </a>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- GameDev Section -->
+    <section class="projects desktop-projects gamedev-projects" data-mode-section="gamedev">
+        <div class="projects-wrapper">
+            <div class="projects-container">
+                <a href="product.html?id=35" class="project-card-link">
+                    <article class="project-card" data-category="gamedev">
+                        <div class="project-image" style="background-image: url('img/homa/Frame 29.png'); background-size: cover; background-position: center;"></div>
+                        <div class="project-card-info">
+                            <span class="project-category">Геймдев • Python Arcade</span>
+                            <h3 class="project-title">Жадина: Путь к легкости</h3>
+                            <p class="project-description">Сатирический 2D-платформер про хомяка, где золото утяжеляет героя, а щедрость возвращает свободу движения</p>
+                            <span class="project-link">Подробнее →</span>
+                        </div>
+                    </article>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Motion Section -->
+    <section class="projects motion-projects" data-mode-section="motion">
+        <div class="projects-wrapper">
+            <div class="projects-container">
+                <!-- Motion Design Projects -->
+                <a href="product.html?id=12" class="project-card-link">
+                    <article class="project-card" data-category="motion">
+                        <div class="project-video-container">
+                            <div class="vimeo-wrapper">
+                                <iframe 
+                                    src="https://player.vimeo.com/video/1151519805?badge=0&autopause=0&player_id=0&app_id=58479&loop=1&muted=1&autoplay=0" 
+                                    frameborder="0" 
+                                    allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" 
+                                    referrerpolicy="strict-origin-when-cross-origin"
+                                    class="vimeo-player"
+                                    data-vimeo-id="1151519805"
+                                    title="МОУШН ДИЗАЙН с интерактивом для LayerZero">
+                                </iframe>
+                            </div>
+                        </div>
+                        <div class="project-card-info">
+                            <span class="project-category">МОУШН-ДИЗАЙН</span>
+                            <h3 class="project-title">LAYERZERO МОУШН-ИНТЕРВЬЮ</h3>
+                            <p class="project-description">Интервью‑шоу анимация для компании LayerZero, оформленный в минималистичном моушн‑дизайне с интерактивными элементами</p>
+                            <span class="project-link">Подробнее →</span>
+                        </div>
+                    </article>
+                </a>
+
+                <a href="product.html?id=28" class="project-card-link">
+                    <article class="project-card" data-category="motion">
+                        <div class="project-video-container">
+                            <div class="vimeo-wrapper">
+                                <iframe 
+                                    src="https://player.vimeo.com/video/1153267206?badge=0&autopause=0&player_id=0&app_id=58479&loop=1&muted=1&autoplay=0" 
+                                    frameborder="0" 
+                                    allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" 
+                                    referrerpolicy="strict-origin-when-cross-origin"
+                                    class="vimeo-player"
+                                    data-vimeo-id="1153267206"
+                                    title="LayerZero V2 — Timeline / Recap">
+                                </iframe>
+                            </div>
+                        </div>
+                        <div class="project-card-info">
+                            <span class="project-category">МОУШН-ДИЗАЙН</span>
+                            <h3 class="project-title">LZ V2 — TIMELINE</h3>
+                            <p class="project-description">Таймлайн ключевых событий LayerZero V2 с типографикой и графическими акцентами</p>
+                            <span class="project-link">Подробнее →</span>
+                        </div>
+                    </article>
+                </a>
+
+                <a href="product.html?id=29" class="project-card-link">
+                    <article class="project-card" data-category="motion">
+                        <div class="project-video-container">
+                            <div class="vimeo-wrapper">
+                                <iframe 
+                                    src="https://player.vimeo.com/video/1153267214?badge=0&autopause=0&player_id=0&app_id=58479&loop=1&muted=1&autoplay=0" 
+                                    frameborder="0" 
+                                    allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" 
+                                    referrerpolicy="strict-origin-when-cross-origin"
+                                    class="vimeo-player"
+                                    data-vimeo-id="1153267214"
+                                    title="lzRead — Intro / Showreel">
+                                </iframe>
+                            </div>
+                        </div>
+                        <div class="project-card-info">
+                            <span class="project-category">МОУШН-ДИЗАЙН</span>
+                            <h3 class="project-title">LZREAD — INTRO</h3>
+                            <p class="project-description">Интро‑ролик: объяснение идеи lzRead через типографику, блоки и инфографику</p>
+                            <span class="project-link">Подробнее →</span>
+                        </div>
+                    </article>
+                </a>
+
+                <a href="product.html?id=30" class="project-card-link">
+                    <article class="project-card" data-category="motion">
+                        <div class="project-video-container">
+                            <div class="vimeo-wrapper">
+                                <iframe 
+                                    src="https://player.vimeo.com/video/1153267200?badge=0&autopause=0&player_id=0&app_id=58479&loop=1&muted=1&autoplay=0" 
+                                    frameborder="0" 
+                                    allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" 
+                                    referrerpolicy="strict-origin-when-cross-origin"
+                                    class="vimeo-player"
+                                    data-vimeo-id="1153267200"
+                                    title="Typography Slide — LayerZero">
+                                </iframe>
+                            </div>
+                        </div>
+                        <div class="project-card-info">
+                            <span class="project-category">МОУШН-ДИЗАЙН</span>
+                            <h3 class="project-title">TYPOGRAPHY SLIDE</h3>
+                            <p class="project-description">Типографическая анимация с крупными заголовками и минималистичной графикой</p>
+                            <span class="project-link">Подробнее →</span>
+                        </div>
+                    </article>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- App Projects Section -->
+    <section class="projects app-projects" data-mode-section="mobile">
+        <div class="projects-wrapper">
+            <div class="projects-container app-projects-container">
+                <!-- App Projects -->
+                <div class="app-card-item" data-category="app">
+                    <div class="app-image-container">
+                        <img src="img/app/mocup/Okakmarketmain (Bezel).png" alt="OKAK Market" class="app-mockup-image">
+                    </div>
+                    <div class="app-card-info">
+                        <span class="project-category">Приложения</span>
+                        <h3 class="project-title">OKAK Market</h3>
+                        <p class="project-description">Комплексный дизайн маркетплейса для мобильных устройств</p>
+                        <a href="product.html?id=15" class="project-link">Подробнее →</a>
+                    </div>
+                </div>
+
+                <div class="app-card-item" data-category="app">
+                    <div class="app-image-container">
+                        <img src="img/app/mocup/solomain (Bezel).png" alt="Solo Leveling App" class="app-mockup-image">
+                    </div>
+                    <div class="app-card-info">
+                        <span class="project-category">Приложения</span>
+                        <h3 class="project-title">Solo Leveling App</h3>
+                        <p class="project-description">Геймифицированный трекер задач в RPG стилистике</p>
+                        <a href="product.html?id=17" class="project-link">Подробнее →</a>
+                    </div>
+                </div>
+
+                <div class="app-card-item" data-category="app">
+                    <div class="app-image-container">
+                        <img src="img/app/mocup/bank2 (Bezel).png" alt="Bank App Concept" class="app-mockup-image">
+                    </div>
+                    <div class="app-card-info">
+                        <span class="project-category">Приложения</span>
+                        <h3 class="project-title">Bank App Concept</h3>
+                        <p class="project-description">Концептуальный дизайн современного банковского интерфейса</p>
+                        <a href="product.html?id=19" class="project-link">Подробнее →</a>
+                    </div>
+                </div>
+
+                <div class="app-card-item" data-category="app">
+                    <div class="app-image-container">
+                        <img src="img/app/app_firstpower/mocup/mocup.png" alt="FirstPower" class="app-mockup-image">
+                    </div>
+                    <div class="app-card-info">
+                        <span class="project-category">Приложения</span>
+                        <h3 class="project-title">FirstPower</h3>
+                        <p class="project-description">Дизайн мобильного приложения: ключевые экраны + мокап</p>
+                        <a href="product.html?id=27" class="project-link">Подробнее →</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer" id="contacts">
+        <div class="footer-container">
+            <div class="footer-form-block">
+                <div class="footer-quick-links">
+                    <a href="https://t.me/fridrix_order" class="footer-contact-link" target="_blank"
+                        rel="noopener noreferrer">Telegram</a>
+                    <a href="mailto:hello@fridrix.design" class="footer-contact-link">Email</a>
+                </div>
+                <form id="contactForm" class="contact-form contact-form--footer">
+                    <div class="footer-form-row">
+                        <div class="form-group form-group--footer">
+                            <label for="name">Имя</label>
+                            <input type="text" id="name" name="name" class="form-input form-input--footer" required
+                                placeholder="Ваше имя">
+                        </div>
+                        <div class="form-group form-group--footer">
+                            <label for="contact">Контакт</label>
+                            <input type="text" id="contact" name="contact" class="form-input form-input--footer" required
+                                placeholder="@ или email">
+                        </div>
+                    </div>
+                    <div class="form-group form-group--footer">
+                        <label for="message">Сообщение</label>
+                        <textarea id="message" name="message" class="form-input form-input--footer" rows="3" required
+                            placeholder="Кратко о задаче..."></textarea>
+                    </div>
+                    <button type="submit" class="btn-primary btn-footer-submit">Отправить</button>
+                </form>
+            </div>
+            <p class="footer-copy">&copy; 2024 FRIDRIX. Все права защищены.</p>
+        </div>
+    </footer>
+
+    <script src="product.js?v=20260709-sql-mobile"></script>
+    <script src="script.js?v=20260709-sql-mobile"></script>
+</body>
+</html>

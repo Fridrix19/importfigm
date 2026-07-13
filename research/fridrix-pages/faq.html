@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Часто задаваемые вопросы — FRIDRIX</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <div class="cursor"></div>
+    <div class="cursor-follower"></div>
+
+    <nav class="nav">
+        <div class="nav-container">
+            <a href="index.html" class="logo">FRIDRIX</a>
+            <div class="nav-links">
+                <a href="portfolio.html" class="nav-link">Работы</a>
+                <a href="about.html" class="nav-link">О себе</a>
+                <a href="services.html" class="nav-link">Услуги</a>
+                <a href="faq.html" class="nav-link active" title="Часто задаваемые вопросы">Вопросы</a>
+                <a href="contact.html" class="nav-link">Контакты</a>
+            </div>
+        </div>
+    </nav>
+
+    <nav class="mobile-nav">
+        <a href="portfolio.html" class="mobile-nav-item">
+            <img src="img/Portfolio.png" alt="" class="mobile-nav-icon">
+            <span class="mobile-nav-label">Работы</span>
+        </a>
+        <a href="about.html" class="mobile-nav-item">
+            <img src="img/Aboutme.png" alt="" class="mobile-nav-icon">
+            <span class="mobile-nav-label">О себе</span>
+        </a>
+        <a href="services.html" class="mobile-nav-item">
+            <img src="img/Price.png" alt="" class="mobile-nav-icon">
+            <span class="mobile-nav-label">Услуги</span>
+        </a>
+        <a href="faq.html" class="mobile-nav-item active">
+            <span class="mobile-nav-icon mobile-nav-icon-fallback" aria-hidden="true">?</span>
+            <span class="mobile-nav-label">Вопросы</span>
+        </a>
+        <a href="contact.html" class="mobile-nav-item">
+            <img src="img/Contact.png" alt="" class="mobile-nav-icon">
+            <span class="mobile-nav-label">Контакты</span>
+        </a>
+    </nav>
+
+    <section class="about faq-page" id="faq" style="padding-top: 120px; min-height: 80vh;">
+        <div class="about-container">
+            <div class="about-content">
+                <h2 class="section-title">Часто задаваемые вопросы</h2>
+                <div class="faq-list">
+                    <div class="faq-item">
+                        <h3>С чего начинается работа?</h3>
+                        <p>Короткий созвон или переписка: задача, аудитория, сроки, референсы и что уже есть
+                            (брендбук, прототип, контент). После этого предлагаю формат сотрудничества и следующий
+                            шаг — от ТЗ до первых макетов.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>Можно заказать только дизайн или только вёрстку?</h3>
+                        <p>Да. Могу подключиться на отдельном этапе: только UI в Figma, только вёрстка по готовым
+                            макетам, только моушн. Главное — зафиксировать входные данные и критерии приёмки.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>Как устроены сроки и оплата?</h3>
+                        <p>Объём и этапы согласуем до старта; сроки зависят от сложности и скорости обратной связи.
+                            Обычно работаю с предоплатой за этап или за весь проект — условия проговариваем заранее и
+                            закрепляем в переписке или договоре.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>Сколько длятся типичные проекты?</h3>
+                        <p>Лендинг или небольшой сайт — от нескольких недель; веб‑приложение или айдентика с нуля —
+                            дольше. Точные сроки даю после просмотра ТЗ и приоритетов.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>Что нужно от заказчика в начале?</h3>
+                        <p>Описание продукта или услуги, целевая аудитория, пожелания по стилю, дедлайны и
+                            ограничения. Если есть — логотип, тексты, доступы к аналитике или к текущему сайту.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>Как лучше связаться?</h3>
+                        <p>Напишите в Telegram или на почту — можно приложить ссылку на бриф или кратко описать
+                            задачу в форме внизу любой страницы сайта.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer" id="contacts">
+        <div class="footer-container">
+            <div class="footer-form-block">
+                <div class="footer-quick-links">
+                    <a href="https://t.me/fridrix_order" class="footer-contact-link" target="_blank"
+                        rel="noopener noreferrer">Telegram</a>
+                    <a href="mailto:hello@fridrix.design" class="footer-contact-link">Email</a>
+                </div>
+                <form id="contactForm" class="contact-form contact-form--footer">
+                    <div class="footer-form-row">
+                        <div class="form-group form-group--footer">
+                            <label for="name">Имя</label>
+                            <input type="text" id="name" name="name" class="form-input form-input--footer" required
+                                placeholder="Ваше имя">
+                        </div>
+                        <div class="form-group form-group--footer">
+                            <label for="contact">Контакт</label>
+                            <input type="text" id="contact" name="contact" class="form-input form-input--footer" required
+                                placeholder="@ или email">
+                        </div>
+                    </div>
+                    <div class="form-group form-group--footer">
+                        <label for="message">Сообщение</label>
+                        <textarea id="message" name="message" class="form-input form-input--footer" rows="3" required
+                            placeholder="Кратко о задаче..."></textarea>
+                    </div>
+                    <button type="submit" class="btn-primary btn-footer-submit">Отправить</button>
+                </form>
+            </div>
+            <p class="footer-copy">&copy; 2024 FRIDRIX. Все права защищены.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
